@@ -16,7 +16,7 @@ export function getAdapter(
         : adapterOrProvider
 }
 
-export function invokeHandler<T>(
+export async function invokeHandler<T>(
     session: SuccessSession,
     arg1?: Arg1<T>,
     arg2?: Arg2<T>
@@ -25,7 +25,9 @@ export function invokeHandler<T>(
         return arg2?.(session)
     }
     if (typeof arg1 === 'function') {
-        return arg1(session)
+        const result = await arg1(session)
+        await session.dispose()
+        return result
     }
     throw new Error(`invalid arg configuration`)
 }

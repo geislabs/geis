@@ -1,5 +1,5 @@
 {
-    "name": "@geislabs/geis-browse",
+    "name": "@geislabs/geis-puppeteer",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -24,13 +24,9 @@
         "watch": "tsc --watch"
     },
     "dependencies": {
-        "inversify": "^5.0.5"
+        "puppeteer-core": "^9.1.1"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "0.0.7",
-        "@geislabs/geis-core": "0.0.7",
-        "@geislabs/geis-resource": "0.0.7",
-        "@geislabs/geis-file": "0.0.7",
-        "cheerio": "^1.0.0-rc.9"
+        "@geislabs/geis-browse": "0.0.7"
     }
 }

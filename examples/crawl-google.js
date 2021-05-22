@@ -5,23 +5,23 @@
  * This sample code illustrates how to scrape the results of a webpage
  */
 
-const { default: config, mock } = require('../') // const config = require('@geislabs/geis')
+const { default: config } = require('../') // const config = require('@geislabs/geis')
+const { PuppeteerAdapter } = require('../packages/geis-puppeteer')
+
 const { browse, cast, apply, string, integer } = config({
-    adapter: mock({
-        'http://google.com': `<html>
-            <div class="title">hello</div>
-            <div class="description">description</div>
-            <div class="summary">summary</div>
-            <div class="likes">15</div>
-        </html> `,
-    }),
+    adapter: new PuppeteerAdapter(),
 })
 
 apply(
-    browse('http://google.com', (session) => ({
-        title: cast(session['.title'], string),
-        description: cast(session['.description'], string),
-        summary: cast(session['.summary'], string),
-        likes: cast(session['.likes'], integer),
+    browse('https://github.com/geislabs/geis', (session) => ({
+        author: cast(session['span.author'], string),
+        stars: cast(
+            session['octicon octicon-repo-star > span.text-bold'],
+            integer
+        ),
+        forks: cast(
+            session['octicon octicon-repo-forked > span.text-bold'],
+            integer
+        ),
     }))
 ).then(console.log)
