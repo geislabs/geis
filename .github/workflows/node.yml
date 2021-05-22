@@ -23,19 +23,16 @@ jobs:
       - name: Set up NPM authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
-      - name: Install 🔧
+      - name: Install and build 🔧
         run: |
           npm ci
           npm run bootstrap
+          npm run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Run unit tests
         run: npm run test:unit
-
-      - name: Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: |
-          npm run build
 
       - name: Run integration tests
         run: npm run test:e2e
