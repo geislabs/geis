@@ -15,7 +15,8 @@
         "dist"
     ],
     "publishConfig": {
-        "registry": "http://registry.npmjs.org/"
+        "registry": "http://registry.npmjs.org/",
+        "access": "public"
     },
     "scripts": {
         "clean": "rimraf dist",
