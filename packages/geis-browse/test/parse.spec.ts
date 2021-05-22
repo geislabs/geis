@@ -1,5 +1,5 @@
-import { cast } from '@geis-studio/lib-type'
-import { integer, string } from '@geis-studio/lib-core'
+import { cast } from '@geislabs/lib-type'
+import { integer, string } from '@geislabs/lib-core'
 import config, { mock } from '../lib'
 
 const browse = config({

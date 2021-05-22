@@ -1,6 +1,6 @@
-import { PendingFile } from '@geis-studio/lib-file'
-import { IntegerType, StringType } from '@geis-studio/lib-core'
-import { Castable, MaybeType } from '@geis-studio/lib-type'
+import { PendingFile } from '@geislabs/lib-file'
+import { IntegerType, StringType } from '@geislabs/lib-core'
+import { Castable, MaybeType } from '@geislabs/lib-type'
 
 export interface HtmlPath
     extends Iterable<HtmlPath>,

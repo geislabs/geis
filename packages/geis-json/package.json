@@ -1,5 +1,5 @@
 {
-    "name": "@geis-studio/lib-json",
+    "name": "@geislabs/lib-json",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -27,6 +27,6 @@
         "jsonpath": "^1.1.1"
     },
     "devDependencies": {
-        "@geis-studio/lib-type": "0.0.7"
+        "@geislabs/lib-type": "0.0.7"
     }
 }

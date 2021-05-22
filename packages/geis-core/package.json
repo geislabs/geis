@@ -1,5 +1,5 @@
 {
-    "name": "@geis-studio/lib-core",
+    "name": "@geislabs/lib-core",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -26,6 +26,6 @@
         "inversify": "^5.0.5"
     },
     "devDependencies": {
-        "@geis-studio/lib-type": "0.0.7"
+        "@geislabs/lib-type": "0.0.7"
     }
 }

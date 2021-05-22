@@ -9,6 +9,7 @@
         "build": "lerna run build --stream",
         "start": "lerna run start --stream",
         "test": "jest",
+        "test:unit": "jest --testPathIgnorePatterns packages/geis-e2e",
         "test:e2e": "jest \"packages/geis-e2e\"",
         "test:browse": "jest \"packages/geis-browse\"",
         "watch": "jest --watch",

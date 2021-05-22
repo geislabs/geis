@@ -3,7 +3,7 @@ import { AnyAction } from '../actions'
 import { BrowseTestConfig } from './testConfig'
 import { ContentMap } from './testValues'
 import { applyActions } from './testUtils'
-import { FileAdapter } from '@geis-studio/lib-file'
+import { FileAdapter } from '@geislabs/lib-file'
 import { buildPath } from '../html/htmlFactory'
 
 export class BrowseTestAdapter implements SessionAdapter {

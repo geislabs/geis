@@ -1,4 +1,4 @@
-import { FileAdapter } from '@geis-studio/lib-file'
+import { FileAdapter } from '@geislabs/lib-file'
 import { ContentMap } from './testValues'
 
 export interface BrowseTestConfig {

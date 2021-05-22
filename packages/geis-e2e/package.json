@@ -1,5 +1,5 @@
 {
-    "name": "@geis-studio/lib-e2e",
+    "name": "@geislabs/lib-e2e",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -16,6 +16,6 @@
     "scripts": {},
     "dependencies": {},
     "devDependencies": {
-        "@geis-studio/lib-main": "0.0.7"
+        "@geislabs/geis": "0.0.7"
     }
 }

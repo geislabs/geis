@@ -1,5 +1,5 @@
 {
-    "name": "@geis-studio/lib-main",
+    "name": "@geislabs/geis",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -30,11 +30,11 @@
         "cheerio": "^1.0.0-rc.9"
     },
     "devDependencies": {
-        "@geis-studio/lib-type": "0.0.7",
-        "@geis-studio/lib-core": "0.0.7",
-        "@geis-studio/lib-file": "0.0.7",
-        "@geis-studio/lib-browse": "0.0.7",
-        "@geis-studio/lib-resource": "0.0.7",
+        "@geislabs/lib-type": "0.0.7",
+        "@geislabs/lib-core": "0.0.7",
+        "@geislabs/lib-file": "0.0.7",
+        "@geislabs/lib-browse": "0.0.7",
+        "@geislabs/lib-resource": "0.0.7",
         "esbuild": "^0.12.1",
         "typescript": "^4.2.4",
         "rimraf": "^3.0.2"
