@@ -1,6 +1,6 @@
-import { Resource } from '@geislabs/lib-resource'
-import { Castable, MaybeType } from '@geislabs/lib-type'
-import { IntegerType, StringType } from '@geislabs/lib-core'
+import { Resource } from '@geislabs/geis-resource'
+import { Castable, MaybeType } from '@geislabs/geis-type'
+import { IntegerType, StringType } from '@geislabs/geis-core'
 import { SessionStatus } from './sessionEnums'
 import { HtmlPath } from '../html/htmlTypes'
 

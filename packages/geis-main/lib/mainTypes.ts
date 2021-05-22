@@ -1,1 +1,1 @@
-export { BrowseConfig, SessionAdapter } from '@geislabs/lib-browse'
+export { BrowseConfig, SessionAdapter } from '@geislabs/geis-browse'

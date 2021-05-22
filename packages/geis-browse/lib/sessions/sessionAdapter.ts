@@ -1,4 +1,4 @@
-import { FileAdapter } from '@geislabs/lib-file'
+import { FileAdapter } from '@geislabs/geis-file'
 import { AnyAction } from '../actions'
 import { AnySession } from './sessionTypes'
 

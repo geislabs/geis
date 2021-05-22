@@ -1,6 +1,6 @@
-import browseconfig, { BrowseProviderConfig } from '@geislabs/lib-browse'
-import { cast, apply } from '@geislabs/lib-type'
-import { string, integer } from '@geislabs/lib-core'
+import browseconfig, { BrowseProviderConfig } from '@geislabs/geis-browse'
+import { cast, apply } from '@geislabs/geis-type'
+import { string, integer } from '@geislabs/geis-core'
 
 /**
  * Do stuff

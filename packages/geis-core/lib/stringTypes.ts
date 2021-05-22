@@ -1,4 +1,4 @@
-import { CustomType } from '@geislabs/lib-type'
+import { CustomType } from '@geislabs/geis-type'
 import * as z from 'zod'
 
 export interface StringType extends CustomType<'string', z.ZodString> {}

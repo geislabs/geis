@@ -1,4 +1,4 @@
-import { FileAdapter } from '@geislabs/lib-file'
+import { FileAdapter } from '@geislabs/geis-file'
 
 export function assertFilesSupported(
     adapter?: FileAdapter

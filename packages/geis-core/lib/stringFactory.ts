@@ -1,4 +1,4 @@
-import { TypeConstructor } from '@geislabs/lib-type'
+import { TypeConstructor } from '@geislabs/geis-type'
 import * as z from 'zod'
 import { IntegerType, StringType } from './stringTypes'
 

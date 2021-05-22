@@ -1,4 +1,4 @@
-import { create as createFile, FileAdapter } from '@geislabs/lib-file'
+import { create as createFile, FileAdapter } from '@geislabs/geis-file'
 import { CheerioAPI } from 'cheerio'
 import { buildLink } from '../links'
 import { CreateHtmlFileAttrs } from './fileAttrs'

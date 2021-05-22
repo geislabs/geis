@@ -1,4 +1,4 @@
-import { LocalFileAdapter } from '@geislabs/lib-file'
+import { LocalFileAdapter } from '@geislabs/geis-file'
 import { SessionProvider } from './sessions/sessionAdapter'
 import { BrowseTestAdapter } from './test'
 

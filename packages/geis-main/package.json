@@ -4,7 +4,7 @@
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
-    "repository": "git://github.com/geis-studio/runtime.git",
+    "repository": "git://github.com/geislabs/geis.git",
     "license": "ISC",
     "main": "dist/index.js",
     "directories": {
@@ -30,11 +30,11 @@
         "cheerio": "^1.0.0-rc.9"
     },
     "devDependencies": {
-        "@geislabs/lib-type": "0.0.7",
-        "@geislabs/lib-core": "0.0.7",
-        "@geislabs/lib-file": "0.0.7",
-        "@geislabs/lib-browse": "0.0.7",
-        "@geislabs/lib-resource": "0.0.7",
+        "@geislabs/geis-type": "0.0.7",
+        "@geislabs/geis-core": "0.0.7",
+        "@geislabs/geis-file": "0.0.7",
+        "@geislabs/geis-browse": "0.0.7",
+        "@geislabs/geis-resource": "0.0.7",
         "esbuild": "^0.12.1",
         "typescript": "^4.2.4",
         "rimraf": "^3.0.2"

@@ -1,10 +1,10 @@
 {
-    "name": "@geislabs/lib-core",
+    "name": "@geislabs/geis-core",
     "version": "0.0.7",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
-    "repository": "git://github.com/geis-studio/runtime.git",
+    "repository": "git://github.com/geislabs/geis.git",
     "license": "ISC",
     "main": "dist/index.js",
     "directories": {
@@ -26,6 +26,6 @@
         "inversify": "^5.0.5"
     },
     "devDependencies": {
-        "@geislabs/lib-type": "0.0.7"
+        "@geislabs/geis-type": "0.0.7"
     }
 }

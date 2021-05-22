@@ -1,6 +1,5 @@
 {
     "name": "root",
-    "private": true,
     "scripts": {
         "bootstrap": "lerna bootstrap",
         "bump": "ncu -u && npm update && npm install && lerna bootstrap",
