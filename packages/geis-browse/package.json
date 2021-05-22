@@ -1,0 +1,36 @@
+{
+    "name": "@geis-studio/lib-browse",
+    "version": "0.0.7",
+    "description": "> TODO: description",
+    "author": "mads hargreave <mads.hargreave@gmail.com>",
+    "homepage": "",
+    "repository": "git://github.com/geis-studio/runtime.git",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "directories": {
+        "dist": "dist",
+        "test": "test"
+    },
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "registry": "http://registry.npmjs.org/"
+    },
+    "scripts": {
+        "clean": "rimraf dist",
+        "build": "tsc",
+        "watch": "tsc --watch"
+    },
+    "dependencies": {
+        "inversify": "^5.0.5"
+    },
+    "devDependencies": {
+        "@geis-studio/lib-type": "0.0.7",
+        "@geis-studio/lib-core": "0.0.7",
+        "@geis-studio/lib-resource": "0.0.7",
+        "@geis-studio/lib-file": "0.0.7",
+        "cheerio": "^1.0.0-rc.9",
+        "puppeteer-core": "^9.1.1"
+    }
+}
