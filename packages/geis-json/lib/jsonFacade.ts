@@ -27,15 +27,18 @@ export function Json(value: string | object): JsonPath | Error {
             value: parsedValue,
         },
         [Symbol.iterator]() {
+            // @ts-expect-error
             const path = this.path.join('.')
             const values = jp.value(parsedValue, path)
             return values.map((value: any) => {
                 const child = Json(value)
+                // @ts-expect-error
                 child.path = [...this.path]
                 return child
             })
         },
         get(selector: string) {
+            // @ts-expect-error
             return { ...this, path: [...this.path, selector] }
         },
         toText() {
@@ -45,6 +48,7 @@ export function Json(value: string | object): JsonPath | Error {
             return ''
         },
         toInteger() {
+            // @ts-expect-error
             const path = this.path.join('.')
             const value = jp.value(parsedValue, path)
             if (typeof value === 'number') {
