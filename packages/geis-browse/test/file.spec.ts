@@ -1,4 +1,6 @@
 import path from 'path'
+import * as rimraf from 'rimraf'
+import fs from 'fs'
 import config, { mock } from '../lib'
 import { assert } from './support'
 
@@ -19,6 +21,14 @@ const browse = config({
 })
 
 describe('file', () => {
+    beforeEach(() => {
+        fs.mkdirSync(rootDir)
+    })
+
+    afterEach(() => {
+        rimraf.sync(rootDir)
+    })
+
     test('return', async () => {
         await expect(
             browse('http://google.com', async (session) => {
