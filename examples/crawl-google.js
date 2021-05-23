@@ -15,6 +15,9 @@ const { browse, cast, apply, string, integer } = config({
 apply(
     browse('https://github.com/geislabs/geis', (session) => ({
         author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
         stars: cast(
             session['octicon octicon-repo-star > span.text-bold'],
             integer
