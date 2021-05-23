@@ -12,19 +12,15 @@ const { partition, browse, cast, string } = config({
     adapter: new PuppeteerAdapter(),
 })
 
-const source = partition(
-    ['geis', 'geis', 'geis'],
-    function* (repo) {
-        yield browse(`https://github.com/geislabs/${repo}`, (session) => ({
-            author: cast(session['span.author'], string),
-            author: cast(session['span.author'], string),
-            author: cast(session['span.author'], string),
-            author: cast(session['span.author'], string),
-            author: cast(session['span.author'], string),
-        }))
-    },
-    { save: console.log }
-)
+const source = partition(['geis', 'geis', 'geis'], function* (repo) {
+    yield browse(`https://github.com/geislabs/${repo}`, (session) => ({
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], string),
+    }))
+})
 
 async function run() {
     for await (const value of source) {
