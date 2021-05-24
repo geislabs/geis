@@ -27,11 +27,9 @@ export interface BrowseType extends ResourceProvider<AnyAction[], AnySession> {
 }
 
 export type Arg1<T> =
-    | ((
-          session: SuccessSession
-      ) => Promise<T> | Generator<T> | AsyncGenerator<T>)
+    | ((session: AnySession) => Promise<T> | Generator<T> | AsyncGenerator<T>)
     | AnyAction[]
 
 export type Arg2<T> = (
-    session: SuccessSession
+    session: AnySession
 ) => Promise<T> | Generator<T> | AsyncGenerator<T>

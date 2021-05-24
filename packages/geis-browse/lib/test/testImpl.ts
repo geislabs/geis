@@ -1,10 +1,17 @@
 import { FileAdapter } from '@geislabs/geis-file'
-import { SessionAdapter, SessionStatus, AnySession } from '../sessions'
+import path from 'path'
+import { URL } from 'url'
+import {
+    SessionAdapter,
+    SessionStatus,
+    AnySession,
+    isReused,
+} from '../sessions'
 import { BrowseTestConfig } from './testConfig'
 import { ContentMap } from './testValues'
 import { applyActions } from './testUtils'
 import { buildPath } from '../html/htmlFactory'
-import { CreateSessionAttrs } from '../sessions/sessionAttrs'
+import { AnySessionAttrs, CreateSessionAttrs } from '../sessions/sessionAttrs'
 
 export class BrowseTestAdapter implements SessionAdapter {
     #content: ContentMap
@@ -16,18 +23,29 @@ export class BrowseTestAdapter implements SessionAdapter {
         this.file = config.file
     }
 
-    async create(attrs: CreateSessionAttrs): Promise<AnySession> {
-        const location = attrs.url
+    async create(attrs: AnySessionAttrs): Promise<AnySession> {
+        const location = isReused(attrs) ? attrs.session.location : attrs.url
         const actions = attrs.actions
-        const pageContent = this.#content[location]
+
+        let nextlocation = actions.reduce((acc, action) => {
+            if (action.kind !== 'goto') {
+                return acc
+            }
+            const current = new URL(acc)
+            current.pathname = action.path
+            return current.toString()
+        }, location)
+
+        const pageContent = this.#content[nextlocation]
         const rendered = applyActions(pageContent, actions)
+
         if (!rendered) {
-            throw new Error(`location '${location}' not found`)
+            throw new Error(`location '${nextlocation}' not found`)
         }
 
         // @ts-expect-error
         const original: AnySession = {
-            location,
+            location: nextlocation,
             status: SessionStatus.OK,
             parse: (selector) =>
                 buildPath({

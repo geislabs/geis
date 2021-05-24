@@ -1,4 +1,4 @@
-import { ClickAction, WaitAction } from './actionTypes'
+import { ClickAction, GotoAction, WaitAction } from './actionTypes'
 
 export const wait = (amountMs: number): WaitAction => ({
     kind: 'wait',
@@ -8,4 +8,9 @@ export const wait = (amountMs: number): WaitAction => ({
 export const click = (selector: string): ClickAction => ({
     kind: 'click',
     selector,
+})
+
+export const goto = (path: string): GotoAction => ({
+    kind: 'goto',
+    path,
 })

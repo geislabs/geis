@@ -1,11 +1,16 @@
 export interface ResourceProvider<TConf, TRes> {
-    (target: string, config?: TConf): Promise<TRes & { dispose: () => void }>
-    <TOut>(target: string, callback: (resource: TRes) => TOut): TOut
+    (target: string | TRes, config?: TConf): Promise<
+        TRes & { dispose: () => void }
+    >
     <TOut>(
-        target: string,
+        target: string | TRes,
+        callback: (resource: TRes) => TOut
+    ): Promise<TOut>
+    <TOut>(
+        target: string | TRes,
         config: TConf,
         callback: (resource: TRes) => TOut
-    ): TOut
+    ): Promise<TOut>
 }
 
 export type ResourceCallback<TRes, TOut = any> =

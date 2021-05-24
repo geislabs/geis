@@ -1,6 +1,13 @@
-import { SessionStatus } from './sessionEnums'
-import { AnySession, FailedSession } from './sessionTypes'
+import {
+    AnySessionAttrs,
+    CreateSessionAttrs,
+    ReuseSessionAttrs,
+} from './sessionAttrs'
 
-export function isFailed(session: AnySession): session is FailedSession {
-    return session.status === SessionStatus.ERROR
+export function isReused(attrs: AnySessionAttrs): attrs is ReuseSessionAttrs {
+    return (attrs as ReuseSessionAttrs).session !== undefined
+}
+
+export function isFresh(attrs: AnySessionAttrs): attrs is CreateSessionAttrs {
+    return (attrs as CreateSessionAttrs).url !== undefined
 }

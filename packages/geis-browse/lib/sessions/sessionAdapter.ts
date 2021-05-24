@@ -1,10 +1,10 @@
 import { ResourceAdapter } from '@geislabs/geis-resource'
 import { FileAdapter } from '@geislabs/geis-file'
 import { AnySession } from './sessionTypes'
-import { CreateSessionAttrs } from './sessionAttrs'
+import { AnySessionAttrs, CreateSessionAttrs } from './sessionAttrs'
 
 export interface SessionAdapter
-    extends ResourceAdapter<CreateSessionAttrs, AnySession> {
+    extends ResourceAdapter<AnySessionAttrs, AnySession> {
     file?: FileAdapter
 }
 

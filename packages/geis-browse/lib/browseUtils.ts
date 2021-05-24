@@ -1,9 +1,12 @@
 import { Arg1, Arg2 } from './browseTypes'
 import { SessionAdapter, SessionProvider, SuccessSession } from './sessions'
 
-export function getActions<T>(arg1?: Arg1<T>) {
+export function getActions<T>(arg1?: Arg1<T>, arg2?: Arg2<T>) {
     if (Array.isArray(arg1)) {
         return arg1
+    }
+    if (Array.isArray(arg2)) {
+        return arg2
     }
     return []
 }
