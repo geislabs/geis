@@ -14,7 +14,11 @@ describe('reuse', () => {
                 title: home['h1.title'].toString(),
                 details: await browse(
                     home,
-                    [browse.goto('/about')],
+                    [
+                        browse.goto('/about'),
+                        browse.goto('/about'),
+                        browse.goto('/about'),
+                    ],
                     (details) => ({
                         title: details['h1.title'].toString(),
                     })

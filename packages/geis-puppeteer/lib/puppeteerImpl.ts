@@ -3,32 +3,42 @@ import {
     SessionAdapter,
     SessionStatus,
     buildPath,
-    CreateSessionAttrs,
+    AnySessionAttrs,
+    isReused,
 } from '@geislabs/geis-browse'
-import { Browser, launch } from 'puppeteer-core'
+import { Browser, launch, Page } from 'puppeteer-core'
 
 let id = 0
 
 export class PuppeteerAdapter implements SessionAdapter {
-    #state: WeakMap<AnySession, Browser>
+    #state: WeakMap<AnySession, [Browser, Page]>
 
     constructor() {
         this.#state = new WeakMap()
     }
 
-    async create(attrs: CreateSessionAttrs): Promise<AnySession> {
-        const { url: location } = attrs
-        const browser = await launch({
-            headless: true,
-            executablePath: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`,
-        })
-        const page = await browser.newPage()
+    async create(attrs: AnySessionAttrs): Promise<AnySession> {
+        const [maybeBrowser, maybePage] = isReused(attrs)
+            ? this.#state.get(attrs.session) ?? []
+            : []
+
+        const browser =
+            maybeBrowser ??
+            (await launch({
+                headless: true,
+                executablePath: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`,
+            }))
+
+        const page = maybePage ?? (await browser.newPage())
+        const location = isReused(attrs) ? attrs.session.location : attrs.url
+
         const response = await page.goto(location, {
             waitUntil: 'networkidle0',
         })
-        if (!response.ok()) {
-            throw new Error(`location '${location}' not found`)
-        }
+        // if (!response.ok()) {
+        //     console.error(response.status(), response.statusText())
+        //     throw new Error(`location '${location}' not found`)
+        // }
         const content = await page.content()
 
         // @ts-expect-error
@@ -55,11 +65,11 @@ export class PuppeteerAdapter implements SessionAdapter {
                 return original.parse(prop.toString())
             },
         })
-        this.#state.set(proxy, browser)
+        this.#state.set(proxy, [browser, page])
         return proxy
     }
 
     async destroy(session: AnySession) {
-        await this.#state.get(session)?.close()
+        await this.#state.get(session)?.[0].close()
     }
 }
