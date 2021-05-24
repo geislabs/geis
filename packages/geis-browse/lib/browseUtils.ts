@@ -16,18 +16,32 @@ export function getAdapter(
         : adapterOrProvider
 }
 
-export async function invokeHandler<T>(
+export function invokeHandler<T>(
     session: SuccessSession,
     arg1?: Arg1<T>,
     arg2?: Arg2<T>
 ) {
     if (Array.isArray(arg1)) {
-        return arg2?.(session)
+        return arg2!(session)
     }
     if (typeof arg1 === 'function') {
-        const result = await arg1(session)
-        await session.dispose()
-        return result
+        return arg1(session)
     }
     throw new Error(`invalid arg configuration`)
+}
+
+export function isPromise<T>(
+    value: Promise<T> | Generator<T> | AsyncGenerator<T>
+): value is Promise<T> {
+    return typeof (value as Promise<T>).then === 'function'
+}
+
+export function isAsyncGenerator<T>(
+    value: Promise<T> | Generator<T> | AsyncGenerator<T>
+): value is AsyncGenerator<T> {
+    return (value as AsyncGenerator)[Symbol.asyncIterator] !== undefined
+}
+
+export function isGenerator(fn: any) {
+    return fn.constructor.name === 'GeneratorFunction'
 }

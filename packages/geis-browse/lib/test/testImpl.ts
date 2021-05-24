@@ -1,10 +1,10 @@
+import { FileAdapter } from '@geislabs/geis-file'
 import { SessionAdapter, SessionStatus, AnySession } from '../sessions'
-import { AnyAction } from '../actions'
 import { BrowseTestConfig } from './testConfig'
 import { ContentMap } from './testValues'
 import { applyActions } from './testUtils'
-import { FileAdapter } from '@geislabs/geis-file'
 import { buildPath } from '../html/htmlFactory'
+import { CreateSessionAttrs } from '../sessions/sessionAttrs'
 
 export class BrowseTestAdapter implements SessionAdapter {
     #content: ContentMap
@@ -16,7 +16,9 @@ export class BrowseTestAdapter implements SessionAdapter {
         this.file = config.file
     }
 
-    async findOne(location: string, actions: AnyAction[]): Promise<AnySession> {
+    async create(attrs: CreateSessionAttrs): Promise<AnySession> {
+        const location = attrs.url
+        const actions = attrs.actions
         const pageContent = this.#content[location]
         const rendered = applyActions(pageContent, actions)
         if (!rendered) {
@@ -25,7 +27,6 @@ export class BrowseTestAdapter implements SessionAdapter {
                 location,
                 status: SessionStatus.ERROR,
                 error: new Error(`location '${location}' not found`),
-                dispose: async () => undefined,
             }
         }
 
@@ -41,7 +42,6 @@ export class BrowseTestAdapter implements SessionAdapter {
                 }),
             toString: () => rendered ?? '<html>hello</html>',
             toInteger: () => 15 ?? null,
-            dispose: async () => undefined,
         }
 
         return new Proxy<AnySession>(original, {
@@ -54,5 +54,9 @@ export class BrowseTestAdapter implements SessionAdapter {
                 return original.parse(prop.toString())
             },
         })
+    }
+
+    destroy(session: AnySession) {
+        return
     }
 }

@@ -1,10 +1,11 @@
+import { ResourceAdapter } from '@geislabs/geis-resource'
 import { FileAdapter } from '@geislabs/geis-file'
-import { AnyAction } from '../actions'
 import { AnySession } from './sessionTypes'
+import { CreateSessionAttrs } from './sessionAttrs'
 
-export interface SessionAdapter {
+export interface SessionAdapter
+    extends ResourceAdapter<CreateSessionAttrs, AnySession> {
     file?: FileAdapter
-    findOne: (location: string, actions: AnyAction[]) => Promise<AnySession>
 }
 
 export type SessionProvider = () => Promise<SessionAdapter>

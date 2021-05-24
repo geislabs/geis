@@ -25,6 +25,7 @@
         "file-url": "^4.0.0",
         "husky": "^6.0.0",
         "inversify": "^5.1.1",
+        "is-generator-function": "^1.0.9",
         "ix": "^4.3.1",
         "jest": "^26.6.3",
         "jsonpath": "^1.1.1",
