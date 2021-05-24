@@ -33,7 +33,6 @@
     "devDependencies": {
         "@geislabs/geis-type": "0.0.7",
         "@geislabs/geis-core": "0.0.7",
-        "@geislabs/geis-partition": "0.0.7",
         "@geislabs/geis-file": "0.0.7",
         "@geislabs/geis-browse": "0.0.7",
         "@geislabs/geis-resource": "0.0.7",
