@@ -7,7 +7,7 @@ export function mock(
     content: BrowseTestConfig['content'] = {},
     opts: { rootDir?: string } = {}
 ): SessionProvider {
-    return async () =>
+    return () =>
         new BrowseTestAdapter({
             content,
             file: new LocalFileAdapter({

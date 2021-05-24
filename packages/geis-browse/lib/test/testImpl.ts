@@ -22,12 +22,7 @@ export class BrowseTestAdapter implements SessionAdapter {
         const pageContent = this.#content[location]
         const rendered = applyActions(pageContent, actions)
         if (!rendered) {
-            // @ts-expect-errore
-            return {
-                location,
-                status: SessionStatus.ERROR,
-                error: new Error(`location '${location}' not found`),
-            }
+            throw new Error(`location '${location}' not found`)
         }
 
         // @ts-expect-error
@@ -50,7 +45,6 @@ export class BrowseTestAdapter implements SessionAdapter {
                     // @ts-expect-error
                     return Reflect.get(...arguments)
                 }
-                // @ts-expect-error
                 return original.parse(prop.toString())
             },
         })

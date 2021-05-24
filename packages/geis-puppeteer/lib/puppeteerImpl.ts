@@ -1,14 +1,23 @@
 import {
-    AnyAction,
     AnySession,
     SessionAdapter,
     SessionStatus,
     buildPath,
+    CreateSessionAttrs,
 } from '@geislabs/geis-browse'
-import { launch } from 'puppeteer-core'
+import { Browser, launch } from 'puppeteer-core'
+
+let id = 0
 
 export class PuppeteerAdapter implements SessionAdapter {
-    async findOne(location: string, actions: AnyAction[]): Promise<AnySession> {
+    #state: WeakMap<AnySession, Browser>
+
+    constructor() {
+        this.#state = new WeakMap()
+    }
+
+    async create(attrs: CreateSessionAttrs): Promise<AnySession> {
+        const { url: location } = attrs
         const browser = await launch({
             headless: true,
             executablePath: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`,
@@ -18,19 +27,13 @@ export class PuppeteerAdapter implements SessionAdapter {
             waitUntil: 'networkidle0',
         })
         if (!response.ok()) {
-            // @ts-expect-error
-            return {
-                location,
-                status: SessionStatus.ERROR,
-                error: new Error(`location '${location}' not found`),
-                dispose: async () => {
-                    return browser.close()
-                },
-            }
+            throw new Error(`location '${location}' not found`)
         }
         const content = await page.content()
+
         // @ts-expect-error
         const original: AnySession = {
+            resourceId: (id++).toString(),
             location,
             status: SessionStatus.OK,
             parse: (selector) =>
@@ -41,20 +44,22 @@ export class PuppeteerAdapter implements SessionAdapter {
                 }),
             toString: () => content,
             toInteger: () => 15 ?? null,
-            dispose: async () => {
-                return browser.close()
-            },
         }
 
-        return new Proxy<AnySession>(original, {
+        const proxy = new Proxy<AnySession>(original, {
             get(target, prop) {
                 if (target.hasOwnProperty(prop)) {
                     // @ts-expect-error
                     return Reflect.get(...arguments)
                 }
-                // @ts-expect-error
                 return original.parse(prop.toString())
             },
         })
+        this.#state.set(proxy, browser)
+        return proxy
+    }
+
+    async destroy(session: AnySession) {
+        await this.#state.get(session)?.close()
     }
 }

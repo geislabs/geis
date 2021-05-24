@@ -26,4 +26,5 @@ export interface FailedSession extends SessionBase<SessionStatus.ERROR> {
     error: Error
 }
 
-export type AnySession = SuccessSession | FailedSession
+export type AnySession = SuccessSession
+//  | FailedSession

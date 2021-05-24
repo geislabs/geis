@@ -8,4 +8,4 @@ export interface SessionAdapter
     file?: FileAdapter
 }
 
-export type SessionProvider = () => Promise<SessionAdapter>
+export type SessionProvider = () => SessionAdapter

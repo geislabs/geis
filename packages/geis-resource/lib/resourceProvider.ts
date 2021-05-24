@@ -7,3 +7,9 @@ export interface ResourceProvider<TConf, TRes> {
         callback: (resource: TRes) => TOut
     ): TOut
 }
+
+export type ResourceCallback<TRes, TOut = any> =
+    | ((resource: TRes) => TOut)
+    | ((resource: TRes) => Promise<TOut>)
+    | ((resource: TRes) => AsyncGenerator<TOut>)
+    | ((resource: TRes) => Generator<TOut>)
