@@ -6,10 +6,10 @@
  */
 
 const { default: config } = require('../') // const config = require('@geislabs/geis')
-const { PuppeteerAdapter } = require('../packages/geis-puppeteer')
+const { puppeteer } = require('../packages/geis-puppeteer')
 
 const { browse, cast, apply, string, integer } = config({
-    adapter: new PuppeteerAdapter(),
+    adapter: puppeteer(),
 })
 
 apply(
