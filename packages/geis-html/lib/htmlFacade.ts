@@ -37,7 +37,7 @@ export class HtmlPathImpl implements HtmlPath {
         return toFile(this.config.file, this)
     }
 
-    async toImage(): Promise<Image> {
+    toImage() {
         if (!this.config.image) {
             throw new Error('images not configured')
         }

@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@geislabs/geis-core": "0.0.7",
+        "@geislabs/geis-image": "0.0.7",
         "@geislabs/geis-file": "0.0.7",
         "@geislabs/geis-type": "0.0.7"
     }
