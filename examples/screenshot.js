@@ -19,7 +19,7 @@ const { browse, apply, cast, Image, String } = config({
 })
 
 apply(
-    browse('https://github.com/geislabs/geis', async (session) => ({
+    browse('https://github.com/geislabs/geis', (session) => ({
         author: cast(session['span.author'], String),
         file: cast(session['#readme'], Image),
     }))
