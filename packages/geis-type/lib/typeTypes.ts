@@ -28,7 +28,9 @@ export type MaybeType<T extends CustomType> = CustomType<
 
 export type ErrorType<T extends CustomType> = CustomType<
     T extends CustomType<infer U> ? U : never,
-    T extends CustomType<any, infer U> ? U | z.ZodNullable<U> : never
+    T extends CustomType<any, infer U>
+        ? z.ZodUnion<[U, z.ZodNull, z.ZodType<Error, z.ZodTypeDef, Error>]>
+        : never
 >
 
 export type Castable<T extends CustomType> = {
@@ -39,21 +41,6 @@ export type Castable<T extends CustomType> = {
         ? z.infer<Extract<T, { kind: P }>['schema']> | Error
         : z.infer<Extract<T, { kind: P }>['schema']>
 }
-
-// interface Test
-//     extends Castable<
-//         | CustomType<'boolean', z.ZodBoolean>
-//         | ErrorType<CustomType<'integer', z.ZodNumber>>
-//     > {}
-
-// const a: Test = {
-//     toBoolean() {
-//         return true
-//     },
-//     toInteger() {
-//         return 1
-//     },
-// }
 
 export type ApplyValues<T> = {
     [P in keyof T]: ApplyValue<T[P]>
