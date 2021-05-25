@@ -8,23 +8,23 @@
 const { default: config } = require('..') // const config = require('@geislabs/geis')
 const { puppeteer } = require('../packages/geis-puppeteer/dist')
 
-const { browse, cast, apply, string, integer } = config({
+const { browse, cast, apply, String, Integer } = config({
     adapter: puppeteer(),
 })
 
 apply(
     browse('https://github.com/geislabs/geis', (session) => ({
-        author: cast(session['span.author'], string),
-        author: cast(session['span.author'], string),
-        author: cast(session['span.author'], string),
-        author: cast(session['span.author'], string),
+        author: cast(session['span.author'], String),
+        author: cast(session['span.author'], String),
+        author: cast(session['span.author'], String),
+        author: cast(session['span.author'], String),
         stars: cast(
             session['octicon octicon-repo-star > span.text-bold'],
-            integer
+            Integer
         ),
         forks: cast(
             session['octicon octicon-repo-forked > span.text-bold'],
-            integer
+            Integer
         ),
     }))
 ).then(console.log)

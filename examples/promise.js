@@ -8,7 +8,7 @@
 const { default: config } = require('..') // const config = require('@geislabs/geis')
 const { puppeteer } = require('../packages/geis-puppeteer/dist')
 
-const { browse, cast, apply, string } = config({
+const { browse, apply } = config({
     adapter: puppeteer(),
 })
 

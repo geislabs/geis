@@ -1,6 +1,6 @@
 import config, { mock } from '@geislabs/geis'
 
-const { cast, apply, browse, integer, string } = config({
+const { cast, apply, browse, Integer, String } = config({
     adapter: mock({
         'http://google.com': `<html>
             <div class="title">hello</div>
@@ -16,10 +16,10 @@ describe('browse', () => {
         await expect(
             apply(
                 browse('http://google.com', (session) => ({
-                    title: cast(session['.title'], string),
-                    description: cast(session['.description'], string),
-                    summary: cast(session['.summary'], string),
-                    likes: cast(session['.likes'], integer),
+                    title: cast(session['.title'], String),
+                    description: cast(session['.description'], String),
+                    summary: cast(session['.summary'], String),
+                    likes: cast(session['.likes'], Integer),
                 }))
             )
         ).resolves.toStrictEqual({

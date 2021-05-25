@@ -1,5 +1,5 @@
 import { cast } from '@geislabs/geis-type'
-import { integer, string } from '@geislabs/geis-core'
+import { Integer, String } from '@geislabs/geis-core'
 import config, { mock } from '../lib'
 
 const browse = config({
@@ -17,10 +17,10 @@ describe('parse', () => {
     test('primitives', async () => {
         await expect(
             browse('http://google.com', (session) => ({
-                title: cast(session['div.title'], string),
-                description: cast(session['div.description'], string),
-                summary: cast(session['div.summary'], string),
-                likes: cast(session['div.likes'], integer),
+                title: cast(session['div.title'], String),
+                description: cast(session['div.description'], String),
+                summary: cast(session['div.summary'], String),
+                likes: cast(session['div.likes'], Integer),
             }))
         ).resolves.toStrictEqual({
             title: 'hello',

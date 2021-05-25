@@ -1,6 +1,6 @@
 import browseconfig, { BrowseProviderConfig } from '@geislabs/geis-browse'
 import { cast, apply } from '@geislabs/geis-type'
-import { string, integer } from '@geislabs/geis-core'
+import { String, Integer } from '@geislabs/geis-core'
 
 /**
  * Do stuff
@@ -12,7 +12,7 @@ export function config(config: BrowseProviderConfig = {}) {
         browse: browseconfig(config),
         cast,
         apply,
-        string,
-        integer,
+        String,
+        Integer,
     }
 }
