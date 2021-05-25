@@ -14,6 +14,7 @@
         "watch": "jest --watch",
         "watch:json": "jest \"packages/geis-json\" --watch",
         "watch:browse": "jest \"packages/geis-browse\" --watch",
+        "watch:type": "jest \"packages/geis-type\" --watch",
         "watch:resource": "jest \"packages/geis-resource\" --watch",
         "prepare": "husky install"
     },

@@ -2,7 +2,7 @@ import * as z from 'zod'
 import { DeepReplace } from './typeUtils'
 
 export interface ValueMap {
-    [key: string]: unknown | Error
+    [key: string]: unknown | Promise<any> | Generator<any> | Error
 }
 
 export interface CustomType<
@@ -35,5 +35,19 @@ export type ApplyValues<T> = {
 export type ApplyValue<T> = T extends Promise<infer U>
     ? // Flatten promises
       U
+    : T extends Generator<infer U>
+    ? // Flatten generators
+      U
+    : T extends AsyncGenerator<infer U>
+    ? // Flatten generators
+      U
     : // Coalesce undefined to nulls and remove errors
       DeepReplace<Exclude<T, Error>, [undefined, null]>
+
+export type RemoveErrors<T extends ValueMap> = {
+    [P in keyof T]: Exclude<T[P], Error>
+}
+
+export type RemovePromises<T extends ValueMap> = {
+    [P in keyof T]: Exclude<T[P], Promise<any>>
+}

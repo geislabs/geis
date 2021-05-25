@@ -43,27 +43,6 @@ export function cast<
     return type.schema.parse(casted)
 }
 
-/**
- * Apply types
- * @param values
- * @returns
- */
-export async function apply<T extends ValueMap>(
-    values: T | Promise<T>
-): Promise<
-    {
-        [P in keyof T]: ApplyValue<T[P]>
-    }
-> {
-    return values as any
-}
-
-const final = apply({
-    title: 'hello' as string | Error,
-    description: 'hello' as string | undefined,
-    file: Promise.resolve('hello'),
-})
-
 function capitalize<T extends string>(value: T): `${Capitalize<T>}` {
     return (value.charAt(0).toUpperCase() +
         value.slice(1)) as `${Capitalize<T>}`
