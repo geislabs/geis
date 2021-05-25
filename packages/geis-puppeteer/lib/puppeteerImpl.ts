@@ -64,13 +64,19 @@ export class PuppeteerAdapter implements SessionAdapter {
                                 const w = box['width'] // area width
                                 const h = box['height']
                                 const image = await page.screenshot({
-                                    path: 'logo.png',
                                     clip: { x: x, y: y, width: w, height: h },
                                 })
-                                return this.config.file?.upload({
-                                    filename: 'random.png',
-                                    stream: image as Buffer,
-                                })
+                                if (!this.config.file) {
+                                    throw new Error(
+                                        `cannot screenshot without file adapter`
+                                    )
+                                }
+                                return resolve(
+                                    await this.config.file.upload({
+                                        filename: 'random.png',
+                                        stream: image as Buffer,
+                                    })
+                                )
                             }) as PendingFile
                         },
                     },
