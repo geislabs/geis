@@ -1,3 +1,4 @@
+import { apply } from '@geislabs/geis-type'
 import util from 'util'
 import { ResourceAdapter } from './resourceAdapter'
 import { ResourceCallback } from './resourceProvider'
@@ -59,8 +60,10 @@ export function invoke<TConf, TRes, TOut>(
         return new Promise(async (resolve, reject) => {
             try {
                 const resource = await adapter.create(config)
-                const result = await callback(resource)
+                // @ts-expect-error
+                const result = await apply(callback(resource))
                 await adapter.destroy(resource)
+                // @ts-expect-error
                 resolve(result)
             } catch (error) {
                 reject(error)

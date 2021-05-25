@@ -8,9 +8,9 @@
 const path = require('path')
 const { default: config } = require('..') // const config = require('@geislabs/geis')
 const { LocalFileAdapter } = require('../packages/geis-file')
-const { puppeteer } = require('../packages/geis-puppeteer/dist')
+const { puppeteer } = require('../packages/geis-puppeteer')
 
-const { browse, apply } = config({
+const { browse, apply, cast, Image, String } = config({
     adapter: puppeteer({
         file: new LocalFileAdapter({
             rootDir: path.resolve(__dirname, 'tmp'),
@@ -20,6 +20,7 @@ const { browse, apply } = config({
 
 apply(
     browse('https://github.com/geislabs/geis', async (session) => ({
-        file: await session['#readme'].toImage(),
+        author: cast(session['span.author'], String),
+        file: cast(session['#readme'], Image),
     }))
 ).then(console.log)

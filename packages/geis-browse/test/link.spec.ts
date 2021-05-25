@@ -1,3 +1,4 @@
+import { ApplyError } from '@geislabs/geis-type'
 import config, { mock } from '../lib'
 
 const browse = config({
@@ -24,8 +25,8 @@ describe('links', () => {
             browse('http://google.com', (session) => ({
                 link: session['p'].toLink(),
             }))
-        ).resolves.toStrictEqual({
-            link: new Error(`element is not a valid link`),
-        })
+        ).rejects.toStrictEqual(
+            new ApplyError([new Error(`element is not a valid link`)])
+        )
     })
 })

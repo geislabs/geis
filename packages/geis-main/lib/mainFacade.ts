@@ -2,6 +2,7 @@ import browseconfig, { BrowseProviderConfig } from '@geislabs/geis-browse'
 import { cast, apply } from '@geislabs/geis-type'
 import { String, Integer } from '@geislabs/geis-core'
 import { Html, Link } from '@geislabs/geis-html'
+import { Image } from '@geislabs/geis-image'
 
 /**
  * Do stuff
@@ -17,5 +18,6 @@ export function config(config: BrowseProviderConfig = {}) {
         Integer,
         Link,
         Html,
+        Image,
     }
 }

@@ -16,9 +16,12 @@ export async function apply<T extends ValueMap>(
     }
 > {
     const resolved = await values
-    if (!resolved) {
+    if (resolved === undefined) {
         // @ts-expect-error
         return
+    }
+    if (typeof resolved !== 'object') {
+        return resolved
     }
     const { values: withoutPromises, promises } = collectPromises(resolved)
     const resolvedValues = await Object.entries(promises).reduce(
