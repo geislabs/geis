@@ -43,6 +43,7 @@ export function browse<T>(
                     url: urlOrSession as string,
                     actions,
                 },
+                // @ts-expect-error
                 arg2
             )
         } else {
@@ -52,6 +53,7 @@ export function browse<T>(
                     session: urlOrSession,
                     actions,
                 },
+                // @ts-expect-error
                 arg2
             )
         }

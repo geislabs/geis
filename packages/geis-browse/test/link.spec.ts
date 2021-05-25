@@ -25,7 +25,7 @@ describe('links', () => {
                 link: session['p'].toLink(),
             }))
         ).resolves.toStrictEqual({
-            link: new Error(`element at 'p' is not a valid link`),
+            link: new Error(`element is not a valid link`),
         })
     })
 })

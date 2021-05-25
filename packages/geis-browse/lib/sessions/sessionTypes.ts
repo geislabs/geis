@@ -1,8 +1,8 @@
+import { HtmlPath } from '@geislabs/geis-html'
 import { Resource } from '@geislabs/geis-resource'
 import { Castable, MaybeType } from '@geislabs/geis-type'
 import { IntegerType, StringType } from '@geislabs/geis-core'
 import { SessionStatus } from './sessionEnums'
-import { HtmlPath } from '../html/htmlTypes'
 
 interface SessionBase<TStatus extends SessionStatus> extends Resource {
     // @ts-expect-error

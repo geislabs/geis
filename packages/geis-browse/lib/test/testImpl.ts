@@ -1,5 +1,5 @@
 import { FileAdapter } from '@geislabs/geis-file'
-import path from 'path'
+import { Html } from '@geislabs/geis-html'
 import { URL } from 'url'
 import {
     SessionAdapter,
@@ -10,8 +10,7 @@ import {
 import { BrowseTestConfig } from './testConfig'
 import { ContentMap } from './testValues'
 import { applyActions } from './testUtils'
-import { buildPath } from '../html/htmlFactory'
-import { AnySessionAttrs, CreateSessionAttrs } from '../sessions/sessionAttrs'
+import { AnySessionAttrs } from '../sessions/sessionAttrs'
 
 export class BrowseTestAdapter implements SessionAdapter {
     #content: ContentMap
@@ -47,12 +46,7 @@ export class BrowseTestAdapter implements SessionAdapter {
         const original: AnySession = {
             location: nextlocation,
             status: SessionStatus.OK,
-            parse: (selector) =>
-                buildPath({
-                    adapter: this,
-                    selector,
-                    value: rendered,
-                }),
+            parse: (selector) => Html(rendered, selector, { file: this.file }),
             toString: () => rendered ?? '<html>hello</html>',
             toInteger: () => 15 ?? null,
         }

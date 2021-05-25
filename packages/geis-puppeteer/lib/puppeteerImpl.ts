@@ -2,18 +2,19 @@ import {
     AnySession,
     SessionAdapter,
     SessionStatus,
-    buildPath,
     AnySessionAttrs,
     isReused,
 } from '@geislabs/geis-browse'
+import { Html } from '@geislabs/geis-html'
 import { Browser, launch, Page } from 'puppeteer-core'
+import { PuppeteerConfig } from './puppeteerConfig'
 
 let id = 0
 
 export class PuppeteerAdapter implements SessionAdapter {
     #state: WeakMap<AnySession, [Browser, Page]>
 
-    constructor() {
+    constructor(public config: PuppeteerConfig = {}) {
         this.#state = new WeakMap()
     }
 
@@ -47,11 +48,7 @@ export class PuppeteerAdapter implements SessionAdapter {
             location,
             status: SessionStatus.OK,
             parse: (selector) =>
-                buildPath({
-                    adapter: this,
-                    selector,
-                    value: content,
-                }),
+                Html(content, selector, { file: this.config.file }),
             toString: () => content,
             toInteger: () => 15 ?? null,
         }
