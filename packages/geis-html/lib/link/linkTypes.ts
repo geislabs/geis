@@ -1,10 +1,5 @@
-import { CustomType } from '@geislabs/geis-type'
+import { CustomType, TypeConstructor } from '@geislabs/geis-type'
 import * as z from 'zod'
-
-export interface Link {
-    name: string
-    href: string
-}
 
 export interface LinkType
     extends CustomType<
@@ -14,3 +9,5 @@ export interface LinkType
             href: z.ZodString
         }>
     > {}
+
+export type LinkConstructor = TypeConstructor<LinkType>
