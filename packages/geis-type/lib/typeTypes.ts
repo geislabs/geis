@@ -2,6 +2,12 @@ import * as z from 'zod'
 import { DeepReplace } from './typeUtils'
 
 export type Validator<T extends z.ZodSchema<any>> = (schema: T) => T
+export type Transform<T extends z.ZodSchema<any>> = (
+    value: z.infer<T>
+) => z.infer<T>
+export type TransformOrCheck<T extends z.ZodSchema<any>> =
+    | Validator<T>
+    | Transform<T>
 
 export interface ValueMap {
     [key: string]: unknown | Promise<any> | Generator<any> | Error
