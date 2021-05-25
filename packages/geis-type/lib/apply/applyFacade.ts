@@ -9,13 +9,18 @@ import { ApplyError } from './applyErrors'
  * @returns
  */
 export async function apply<T extends ValueMap>(
-    values: T | Promise<T>
+    values?: T | Promise<T>
 ): Promise<
     {
         [P in keyof T]: ApplyValue<T[P]>
     }
 > {
-    const { values: withoutPromises, promises } = collectPromises(await values)
+    const resolved = await values
+    if (!resolved) {
+        // @ts-expect-error
+        return
+    }
+    const { values: withoutPromises, promises } = collectPromises(resolved)
     const resolvedValues = await Object.entries(promises).reduce(
         async (promiseAcc, [key, promiseValue]) => {
             const acc = await promiseAcc

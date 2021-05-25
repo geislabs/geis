@@ -16,6 +16,7 @@
         "watch:browse": "jest \"packages/geis-browse\" --watch",
         "watch:type": "jest \"packages/geis-type\" --watch",
         "watch:resource": "jest \"packages/geis-resource\" --watch",
+        "watch:html": "jest \"packages/geis-html\" --watch",
         "prepare": "husky install"
     },
     "devDependencies": {

@@ -26,7 +26,9 @@ export function buildPath(config: CreateHtmlPathAttrs): HtmlPath {
         },
         toInteger() {
             const value = $(node).text()
+            console.log('value', value)
             const casted = Number(value)
+            console.log('casted', casted)
             return isNaN(casted) ? null : casted
         },
         toLink() {
