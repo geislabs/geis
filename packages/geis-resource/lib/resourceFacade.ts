@@ -58,15 +58,19 @@ export function invoke<TConf, TRes, TOut>(
         })()
     } else {
         return new Promise(async (resolve, reject) => {
+            let resource: TRes | null = null
             try {
-                const resource = await adapter.create(config)
+                resource = await adapter.create(config)
                 // @ts-expect-error
                 const result = await apply(callback(resource))
                 await adapter.destroy(resource)
                 // @ts-expect-error
                 resolve(result)
             } catch (error) {
-                reject(error)
+                if (resource) {
+                    await adapter.destroy(resource)
+                }
+                return reject(error)
             }
         })
     }

@@ -1,5 +1,6 @@
 import { PendingFile } from '@geislabs/geis-file'
 import autobind from 'autobind-decorator'
+import assert from 'assert'
 import { toBoolean } from './boolean/booleanHelpers'
 import { HtmlConfig } from './htmlConfig'
 import { HtmlPath } from './htmlTypes'
@@ -41,7 +42,9 @@ export class HtmlPathImpl implements HtmlPath {
         if (!this.config.image) {
             throw new Error('images not configured')
         }
+        // @ts-expect-error
         const uniqueSelector = this.config.node.getUniqueSelector()
+        assert(typeof uniqueSelector === 'string')
         return this.config.image.create(uniqueSelector)
     }
 

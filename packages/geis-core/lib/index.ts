@@ -1,2 +1,3 @@
-export * from './stringFactory'
-export * from './stringTypes'
+export * from './coreFactory'
+export * from './coreTypes'
+export * from './validators'

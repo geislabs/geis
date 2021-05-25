@@ -53,30 +53,39 @@ export class PuppeteerAdapter implements SessionAdapter {
                     file: this.config.file,
                     image: {
                         create: (selector) => {
-                            return new Promise(async (resolve) => {
-                                const element = await page.$(selector)
-                                const box = await element?.boundingBox()
-                                if (!box) {
-                                    return null
-                                }
-                                const x = box['x'] // coordinate x
-                                const y = box['y'] // coordinate y
-                                const w = box['width'] // area width
-                                const h = box['height']
-                                const image = await page.screenshot({
-                                    clip: { x: x, y: y, width: w, height: h },
-                                })
-                                if (!this.config.file) {
-                                    throw new Error(
-                                        `cannot screenshot without file adapter`
-                                    )
-                                }
-                                return resolve(
-                                    await this.config.file.upload({
-                                        filename: 'random.png',
-                                        stream: image as Buffer,
+                            return new Promise(async (resolve, reject) => {
+                                try {
+                                    const element = await page.$(selector)
+                                    const box = await element?.boundingBox()
+                                    if (!box) {
+                                        return null
+                                    }
+                                    const x = box['x'] // coordinate x
+                                    const y = box['y'] // coordinate y
+                                    const w = box['width'] // area width
+                                    const h = box['height']
+                                    const image = await page.screenshot({
+                                        clip: {
+                                            x: x,
+                                            y: y,
+                                            width: w,
+                                            height: h,
+                                        },
                                     })
-                                )
+                                    if (!this.config.file) {
+                                        throw new Error(
+                                            `cannot screenshot without file adapter`
+                                        )
+                                    }
+                                    return resolve(
+                                        await this.config.file.upload({
+                                            filename: 'random.png',
+                                            stream: image as Buffer,
+                                        })
+                                    )
+                                } catch (error) {
+                                    return reject(error)
+                                }
                             }) as PendingFile
                         },
                     },

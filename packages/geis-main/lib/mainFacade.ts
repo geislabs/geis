@@ -19,5 +19,7 @@ export function config(config: BrowseProviderConfig = {}) {
         Link,
         Html,
         Image,
+        min: String.min,
+        max: String.max,
     }
 }

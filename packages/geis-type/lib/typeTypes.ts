@@ -1,6 +1,8 @@
 import * as z from 'zod'
 import { DeepReplace } from './typeUtils'
 
+export type Validator<T extends z.ZodSchema<any>> = (schema: T) => T
+
 export interface ValueMap {
     [key: string]: unknown | Promise<any> | Generator<any> | Error
 }
@@ -14,8 +16,10 @@ export interface CustomType<
 }
 export type TypeConstructor<
     T extends CustomType<any> = CustomType<any>,
-    TInner = T extends CustomType<any, infer U> ? U : never
-> = (schema?: TInner) => T
+    TInner extends z.ZodSchema<any> = T extends CustomType<any, infer U>
+        ? U
+        : never
+> = (...validators: Validator<TInner>[]) => T
 
 export type MaybeType<T extends CustomType> = CustomType<
     T extends CustomType<infer U> ? U : never,
