@@ -24,6 +24,10 @@
         "watch": "tsc --watch"
     },
     "dependencies": {
+        "fs-extra": "^10.0.0",
         "inversify": "^5.0.5"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.11"
     }
 }

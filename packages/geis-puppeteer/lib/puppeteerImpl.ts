@@ -5,6 +5,7 @@ import {
     AnySessionAttrs,
     isReused,
 } from '@geislabs/geis-browse'
+import { PendingFile } from '@geislabs/geis-file'
 import { Html } from '@geislabs/geis-html'
 import { Browser, launch, Page } from 'puppeteer-core'
 import { PuppeteerConfig } from './puppeteerConfig'
@@ -47,8 +48,34 @@ export class PuppeteerAdapter implements SessionAdapter {
             resourceId: (id++).toString(),
             location,
             status: SessionStatus.OK,
-            parse: (selector) =>
-                Html(content, selector, { file: this.config.file }),
+            parse: (selector) => {
+                return Html(content, selector, {
+                    file: this.config.file,
+                    image: {
+                        create: (selector) => {
+                            return new Promise(async (resolve) => {
+                                const element = await page.$(selector)
+                                const box = await element?.boundingBox()
+                                if (!box) {
+                                    return null
+                                }
+                                const x = box['x'] // coordinate x
+                                const y = box['y'] // coordinate y
+                                const w = box['width'] // area width
+                                const h = box['height']
+                                const image = await page.screenshot({
+                                    path: 'logo.png',
+                                    clip: { x: x, y: y, width: w, height: h },
+                                })
+                                return this.config.file?.upload({
+                                    filename: 'random.png',
+                                    stream: image as Buffer,
+                                })
+                            }) as PendingFile
+                        },
+                    },
+                })
+            },
             toString: () => content,
             toInteger: () => 15 ?? null,
         }

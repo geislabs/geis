@@ -8,6 +8,7 @@ import { toLink } from './link/linkHelpers'
 import { toFile } from './file/fileHelpers'
 import { toIterator } from './iterator/iteratorHelpers'
 import { toString } from './string/stringHelpers'
+import { Image } from './images/imageTypes'
 
 @autobind
 export class HtmlPathImpl implements HtmlPath {
@@ -34,6 +35,14 @@ export class HtmlPathImpl implements HtmlPath {
             throw new Error('files not configured')
         }
         return toFile(this.config.file, this)
+    }
+
+    async toImage(): Promise<Image> {
+        if (!this.config.image) {
+            throw new Error('images not configured')
+        }
+        const uniqueSelector = this.config.node.getUniqueSelector()
+        return this.config.image.create(uniqueSelector)
     }
 
     parse(selector: string) {

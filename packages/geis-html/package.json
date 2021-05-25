@@ -24,11 +24,12 @@
         "watch": "tsc --watch"
     },
     "dependencies": {
-        "cheerio": "^1.0.0-rc.9"
+        "cheerio": "^1.0.0-rc.9",
+        "cheerio-get-css-selector": "^2.0.0"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "0.0.7",
+        "@geislabs/geis-core": "0.0.7",
         "@geislabs/geis-file": "0.0.7",
-        "@geislabs/geis-core": "0.0.7"
+        "@geislabs/geis-type": "0.0.7"
     }
 }
