@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis-resource",
-    "version": "0.0.1",
+    "version": "0.0.9",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -24,6 +24,6 @@
         "watch": "tsc --watch"
     },
     "dependencies": {
-        "@geislabs/geis-type": "^0.0.1"
+        "@geislabs/geis-type": "^0.0.9"
     }
 }
