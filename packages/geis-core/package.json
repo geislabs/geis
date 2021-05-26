@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis-core",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -27,6 +27,6 @@
         "inversify": "^5.0.5"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "^0.0.18"
+        "@geislabs/geis-type": "^0.0.19"
     }
 }
