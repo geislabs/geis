@@ -11,8 +11,7 @@ describe('iterate', () => {
                             <li>2</li>
                             <li>3</li>
                         </ul>
-                    </html>`,
-                    '.value'
+                    </html>`
                 ).parse('ul > li'),
             ].map((path) => path.toInteger())
         ).toStrictEqual([1, 2, 3])

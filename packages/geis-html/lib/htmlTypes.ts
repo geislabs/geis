@@ -15,4 +15,6 @@ export interface HtmlPath
             | ErrorType<ImageType>
         > {
     parse: (selector: string) => HtmlPath
+    toArray: () => HtmlPath[]
+    toRaw: () => string
 }

@@ -18,6 +18,10 @@ export class HtmlPathImpl implements HtmlPath {
         return toString(this.config.node)
     }
 
+    toRaw() {
+        return this.config.$.html(this.config.node)
+    }
+
     toInteger() {
         return toInteger(this.config.node)
     }
@@ -56,7 +60,7 @@ export class HtmlPathImpl implements HtmlPath {
     }
 
     parse(selector: string) {
-        return this.config.provide(selector)
+        return this.config.provide(this.config.node.find(selector))
     }
 
     [Symbol.iterator](): Iterator<HtmlPath> {

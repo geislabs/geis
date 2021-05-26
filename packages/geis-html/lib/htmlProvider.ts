@@ -1,4 +1,4 @@
-import { load } from 'cheerio'
+import { Cheerio, load, Node } from 'cheerio'
 import getUniquePath from 'cheerio-get-css-selector'
 import { HtmlConfig, HtmlPathProvideFn } from './htmlConfig'
 import { HtmlPathImpl } from './htmlFacade'
@@ -12,7 +12,14 @@ export function Html(
     const $ = load(content)
     getUniquePath.init($)
     const provide: HtmlPathProvideFn = (inner) => {
-        const node = inner ? $(inner) : $.root()
+        let node: Cheerio<Node>
+        if (typeof inner === 'string') {
+            node = $(inner)
+        } else if (typeof inner === 'object') {
+            node = $(inner)
+        } else {
+            node = $.root()
+        }
         return new HtmlPathImpl({ ...config, $, node, provide })
     }
 
