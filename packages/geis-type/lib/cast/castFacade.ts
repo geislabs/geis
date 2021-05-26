@@ -66,6 +66,7 @@ const custom2 = cast(uppercase, uppercase, uppercase)(String)
 const custom3 = cast(uppercase, uppercase, uppercase)(String)('hello')
 const custom4 = cast(uppercase)(uppercase, uppercase)
 
+// @ts-expect-error
 const casted1 = custom1('hello')
 const casted2 = custom2('hello')
 const casted3 = custom3
