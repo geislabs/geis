@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis-e2e",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -16,6 +16,6 @@
     },
     "scripts": {},
     "devDependencies": {
-        "@geislabs/geis": "^0.0.17"
+        "@geislabs/geis": "^0.0.18"
     }
 }
