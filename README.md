@@ -20,6 +20,20 @@
   </a>
 </p>
 
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+    - [Advantages Over Other Tools](#advantages-over-other-tools)
+
+---
+
+_Note: This README is for the unreleased master branch, please reference the
+[official documentation on NPM][hexdoc] for the latest stable release._
+
+[hexdoc]: https://hexdocs.pm/oban/Geis.html
+
+---
 
 ## Features
 
