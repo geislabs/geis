@@ -1,6 +1,9 @@
 import { PuppeteerConfig } from './puppeteerConfig'
 import { PuppeteerAdapter } from './puppeteerImpl'
 
-export function puppeteer({ ...config }: Partial<PuppeteerConfig> = {}) {
-    return new PuppeteerAdapter(config)
+export function puppeteer({
+    options = {},
+    ...config
+}: Partial<PuppeteerConfig> = {}) {
+    return new PuppeteerAdapter({ options, ...config })
 }

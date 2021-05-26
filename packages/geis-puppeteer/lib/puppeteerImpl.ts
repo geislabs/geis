@@ -15,7 +15,7 @@ let id = 0
 export class PuppeteerAdapter implements SessionAdapter {
     #state: WeakMap<AnySession, [Browser, Page]>
 
-    constructor(public config: PuppeteerConfig = {}) {
+    constructor(public config: PuppeteerConfig) {
         this.#state = new WeakMap()
     }
 
@@ -29,13 +29,14 @@ export class PuppeteerAdapter implements SessionAdapter {
             (await launch({
                 headless: true,
                 executablePath: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`,
+                ...this.config.options,
             }))
 
         const page = maybePage ?? (await browser.newPage())
         const location = isReused(attrs) ? attrs.session.location : attrs.url
 
-        const response = await page.goto(location, {
-            waitUntil: 'networkidle0',
+        await page.goto(location, {
+            waitUntil: this.config.waitfor ?? 'networkidle0',
         })
         // if (!response.ok()) {
         //     console.error(response.status(), response.statusText())
