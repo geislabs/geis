@@ -20,8 +20,23 @@ export function Html(
         } else {
             node = $.root()
         }
-        return new HtmlPathImpl({ ...config, $, node, provide })
+        const instance = new HtmlPathImpl({ ...config, $, node, provide })
+        return proxify<HtmlPath>(instance)
     }
 
     return provide(selector)
+}
+
+function proxify<T extends object & { parse: (selector: string) => T }>(
+    value: T
+): T {
+    return new Proxy<T>(value, {
+        get(target, prop) {
+            if (prop in target || typeof prop === 'symbol') {
+                // @ts-expect-error
+                return Reflect.get(...arguments)
+            }
+            return value.parse(prop.toString())
+        },
+    })
 }
