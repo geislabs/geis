@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -27,13 +27,13 @@
         "build:types": "tsc --emitDeclarationOnly --outDir dist"
     },
     "dependencies": {
-        "@geislabs/geis-browse": "^0.0.10",
-        "@geislabs/geis-core": "^0.0.10",
-        "@geislabs/geis-file": "^0.0.10",
-        "@geislabs/geis-html": "^0.0.10",
-        "@geislabs/geis-image": "^0.0.10",
-        "@geislabs/geis-resource": "^0.0.10",
-        "@geislabs/geis-type": "^0.0.10",
+        "@geislabs/geis-browse": "^0.0.11",
+        "@geislabs/geis-core": "^0.0.11",
+        "@geislabs/geis-file": "^0.0.11",
+        "@geislabs/geis-html": "^0.0.11",
+        "@geislabs/geis-image": "^0.0.11",
+        "@geislabs/geis-resource": "^0.0.11",
+        "@geislabs/geis-type": "^0.0.11",
         "autobind-decorator": "^2.4.0"
     },
     "devDependencies": {
