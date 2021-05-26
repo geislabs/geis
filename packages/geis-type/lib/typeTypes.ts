@@ -20,6 +20,12 @@ export interface CustomType<
     kind: TKind
     schema: T
 }
+
+export interface ArrayType<TElem extends CustomType = CustomType> {
+    kind: 'array'
+    schema: z.ZodArray<TElem['schema']>
+}
+
 export type TypeConstructor<
     T extends CustomType<any> = CustomType<any>,
     TInner extends z.ZodSchema<any> = T extends CustomType<any, infer U>

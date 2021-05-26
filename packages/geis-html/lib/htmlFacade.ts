@@ -9,7 +9,6 @@ import { toLink } from './link/linkHelpers'
 import { toFile } from './file/fileHelpers'
 import { toIterator } from './iterator/iteratorHelpers'
 import { toString } from './string/stringHelpers'
-import { Image } from './images/imageTypes'
 
 @autobind
 export class HtmlPathImpl implements HtmlPath {
@@ -25,6 +24,14 @@ export class HtmlPathImpl implements HtmlPath {
 
     toBoolean() {
         return toBoolean(this.config.node)
+    }
+
+    toArray(): HtmlPath[] {
+        const paths: HtmlPath[] = []
+        for (const path of this) {
+            paths.push(path)
+        }
+        return paths
     }
 
     toLink() {

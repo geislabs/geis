@@ -1,4 +1,4 @@
-import { TypeConstructor } from '@geislabs/geis-type'
+import { TypeConstructor, ArrayType, CustomType } from '@geislabs/geis-type'
 import * as z from 'zod'
 import { BooleanType, IntegerType, StringType } from './coreTypes'
 import { max, min } from './validators'
@@ -29,3 +29,13 @@ export const Boolean: TypeConstructor<BooleanType> = (...validators) => ({
     kind: 'boolean',
     schema: validators.reduce((acc, validator) => validator(acc), z.boolean()),
 })
+
+export const Array =
+    (element: CustomType): TypeConstructor<ArrayType> =>
+    (...validators) => ({
+        kind: 'array',
+        schema: validators.reduce(
+            (acc, validator) => validator(acc),
+            z.array(element.schema)
+        ),
+    })
