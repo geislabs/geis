@@ -1,4 +1,4 @@
-import config, { mock } from '@geislabs/geis'
+const { config, mock } = require('@geislabs/geis')
 
 const { cast, apply, browse, Integer, String } = config({
     adapter: mock({

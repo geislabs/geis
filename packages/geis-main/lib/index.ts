@@ -4,6 +4,3 @@ export { String, Integer } from '@geislabs/geis-core'
 
 export * from './mainFacade'
 export * from './mainTypes'
-
-import { config } from './mainFacade'
-export default config

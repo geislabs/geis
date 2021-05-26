@@ -3,7 +3,8 @@
     "exclude": ["dist"],
     "include": ["lib"],
     "compilerOptions": {
-        "outDir": "dist",
+        "module": "commonjs",
+        "outDir": "./dist",
         "rootDir": "lib",
         "declaration": true
     }

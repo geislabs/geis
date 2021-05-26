@@ -21,10 +21,7 @@
     "scripts": {
         "clean": "rimraf dist",
         "build": "tsc",
-        "watch": "tsc --watch",
-        "build:es": "npm run clean && npm run build:bundle && npm run build:types",
-        "build:bundle": "esbuild lib/index.ts --platform=node --bundle --outdir=dist --external:cheerio",
-        "build:types": "tsc --emitDeclarationOnly --outDir dist"
+        "watch": "tsc --watch"
     },
     "dependencies": {
         "@geislabs/geis-browse": "^0.0.12",
