@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.7",
+    "version": "0.0.1",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -27,19 +27,19 @@
         "build:types": "tsc --emitDeclarationOnly --outDir dist"
     },
     "dependencies": {
-        "inversify": "^5.0.5",
-        "cheerio": "^1.0.0-rc.9"
+        "cheerio": "^1.0.0-rc.9",
+        "inversify": "^5.0.5"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "0.0.7",
-        "@geislabs/geis-core": "0.0.7",
-        "@geislabs/geis-file": "0.0.7",
-        "@geislabs/geis-image": "0.0.7",
-        "@geislabs/geis-html": "0.0.7",
-        "@geislabs/geis-browse": "0.0.7",
-        "@geislabs/geis-resource": "0.0.7",
+        "@geislabs/geis-browse": "^0.0.1",
+        "@geislabs/geis-core": "^0.0.1",
+        "@geislabs/geis-file": "^0.0.1",
+        "@geislabs/geis-html": "^0.0.1",
+        "@geislabs/geis-image": "^0.0.1",
+        "@geislabs/geis-resource": "^0.0.1",
+        "@geislabs/geis-type": "^0.0.1",
         "esbuild": "^0.12.1",
-        "typescript": "^4.2.4",
-        "rimraf": "^3.0.2"
+        "rimraf": "^3.0.2",
+        "typescript": "^4.2.4"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis-image",
-    "version": "0.0.7",
+    "version": "0.0.1",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -23,9 +23,8 @@
         "build": "tsc",
         "watch": "tsc --watch"
     },
-    "dependencies": {},
     "devDependencies": {
-        "@geislabs/geis-type": "0.0.7",
-        "@geislabs/geis-file": "0.0.7"
+        "@geislabs/geis-file": "^0.0.1",
+        "@geislabs/geis-type": "^0.0.1"
     }
 }
