@@ -4,3 +4,4 @@ dist
 lerna-debug.log
 .vscode
 examples/tmp
+coverage

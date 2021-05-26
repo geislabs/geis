@@ -18,6 +18,9 @@
   <a href="https://opensource.org/licenses/Apache-2.0">
     <img alt="Apache 2 License" src="https://img.shields.io/npm/l/geis">
   </a>
+  <a href="https://codecov.io/gh/geislabs/geis">
+    <img src="https://codecov.io/gh/geislabs/geis/branch/master/graph/badge.svg?token=CYpB9H2ah3"/>
+  </a>
 </p>
 
 ## Table of Contents
