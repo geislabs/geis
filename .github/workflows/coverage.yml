@@ -4,31 +4,27 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 2 
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install and build 🔧
+        run: |
+          npm ci
+          npm run bootstrap
+          npm run build
 
-    - name: Run the tests
-      run: npm run test:coverage
+      - name: Run the tests
+        run: npm run test:coverage
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
