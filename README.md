@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://hex.pm/packages/geis">
+  <a href="https://www.npmjs.com/package/@geislabs/geis">
     <img alt="Hex Version" src="https://img.shields.io/npm/v/@geislabs/geis.svg">
   </a>
   <a href="https://github.com/geislabs/geis/actions">
