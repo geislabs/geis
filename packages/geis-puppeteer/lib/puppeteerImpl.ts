@@ -112,4 +112,24 @@ export class PuppeteerAdapter implements SessionAdapter {
     async destroy(session: AnySession) {
         await this.#state.get(session)?.[0].close()
     }
+
+    async click(session: AnySession, selector: string) {
+        const [, page] = this.#state.get(session) ?? []
+        if (!page) {
+            throw new Error(`page not found for session`)
+        }
+        await page.click(selector)
+        return session
+    }
+
+    async has(session: AnySession, selector: string) {
+        const [, page] = this.#state.get(session) ?? []
+        if (!page) {
+            throw new Error(`page not found for session`)
+        }
+        const exists = (await page
+            .$eval(selector, () => true)
+            .catch(() => false)) as boolean
+        return exists
+    }
 }

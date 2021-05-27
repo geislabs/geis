@@ -1,15 +1,15 @@
-export interface ResourceProvider<TConf, TRes> {
+export interface ResourceProvider<TConf, TRes, TContext = undefined> {
     (target: string | TRes, config?: TConf): Promise<
         TRes & { dispose: () => void }
     >
     <TOut>(
         target: string | TRes,
-        callback: (resource: TRes) => TOut
+        callback: (resource: TRes, context: TContext) => TOut
     ): Promise<TOut>
     <TOut>(
         target: string | TRes,
         config: TConf,
-        callback: (resource: TRes) => TOut
+        callback: (resource: TRes, context: TContext) => TOut
     ): Promise<TOut>
 }
 
