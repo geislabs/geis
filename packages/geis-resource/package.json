@@ -1,4 +1,5 @@
 {
+    "private": true,
     "name": "@geislabs/geis-resource",
     "version": "0.0.20",
     "description": "> TODO: description",
