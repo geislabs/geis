@@ -1,1 +1,1 @@
-export * from './jsonFacade'
+export * from './jsonProvider'

@@ -30,6 +30,7 @@
     },
     "devDependencies": {
         "@geislabs/geis-html": "^0.0.23",
+        "@geislabs/geis-json": "^0.0.23",
         "@geislabs/geis-protocol": "^0.0.23",
         "@geislabs/geis-type": "^0.0.23",
         "@types/node-fetch": "^2.5.10"
