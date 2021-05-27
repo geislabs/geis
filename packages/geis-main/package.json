@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.22",
+    "version": "0.0.23",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -24,13 +24,13 @@
         "watch": "npm run clean && rollup --config rollup.config.js --watch"
     },
     "dependencies": {
-        "@geislabs/geis-browse": "^0.0.22",
-        "@geislabs/geis-file": "^0.0.22",
-        "@geislabs/geis-html": "^0.0.22",
-        "@geislabs/geis-resource": "^0.0.22",
-        "@geislabs/geis-core": "^0.0.22",
-        "@geislabs/geis-image": "^0.0.22",
-        "@geislabs/geis-type": "^0.0.22",
+        "@geislabs/geis-browse": "^0.0.23",
+        "@geislabs/geis-core": "^0.0.23",
+        "@geislabs/geis-file": "^0.0.23",
+        "@geislabs/geis-html": "^0.0.23",
+        "@geislabs/geis-image": "^0.0.23",
+        "@geislabs/geis-resource": "^0.0.23",
+        "@geislabs/geis-type": "^0.0.23",
         "autobind-decorator": "^2.4.0",
         "cheerio": "^1.0.0-rc.9",
         "fs-extra": "^10.0.0",

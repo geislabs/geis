@@ -1,7 +1,7 @@
 {
     "private": false,
     "name": "@geislabs/geis-browse",
-    "version": "0.0.22",
+    "version": "0.0.23",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -28,11 +28,11 @@
         "inversify": "^5.0.5"
     },
     "devDependencies": {
-        "@geislabs/geis-core": "^0.0.22",
-        "@geislabs/geis-file": "^0.0.22",
-        "@geislabs/geis-html": "^0.0.22",
-        "@geislabs/geis-resource": "^0.0.22",
-        "@geislabs/geis-type": "^0.0.22",
+        "@geislabs/geis-core": "^0.0.23",
+        "@geislabs/geis-file": "^0.0.23",
+        "@geislabs/geis-html": "^0.0.23",
+        "@geislabs/geis-resource": "^0.0.23",
+        "@geislabs/geis-type": "^0.0.23",
         "cheerio": "^1.0.0-rc.9"
     }
 }
