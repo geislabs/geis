@@ -8,6 +8,9 @@ export class JsonPathImpl implements JsonPath {
     toString() {
         return JSON.stringify(this.config.value)
     }
+    toInteger() {
+        return Number(this.toString())
+    }
     toObject() {
         return this.config.value
     }
