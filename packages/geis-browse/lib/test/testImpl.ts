@@ -15,11 +15,13 @@ import { AnySessionAttrs } from '../sessions/sessionAttrs'
 
 export class BrowseTestAdapter implements SessionAdapter {
     #content: ContentMap
+    #rendered: Map<string, string>
 
     public file?: FileAdapter
 
     constructor(public config: BrowseTestConfig) {
         this.#content = config.content ?? {}
+        this.#rendered = new Map()
         this.file = config.file
     }
 
@@ -51,6 +53,7 @@ export class BrowseTestAdapter implements SessionAdapter {
             toInteger: () => 15 ?? null,
         }
 
+        this.#rendered.set(original.location, rendered)
         return new Proxy<AnySession>(original, {
             get(target, prop) {
                 if (target.hasOwnProperty(prop)) {
@@ -68,6 +71,7 @@ export class BrowseTestAdapter implements SessionAdapter {
             { kind: 'click', selector },
         ])
         this.#content[session.resourceId] = rendered
+        this.#rendered.set(session.location, rendered)
         const original = {
             ...session,
             parse: (selector) => Html(rendered, selector, { file: this.file }),
@@ -83,6 +87,12 @@ export class BrowseTestAdapter implements SessionAdapter {
                 return original.parse(prop.toString())
             },
         })
+    }
+
+    async has(session: AnySession, selector: string) {
+        const rendered = this.#rendered.get(session.location)
+        const html = Html(rendered, selector)
+        return !!html.toString()
     }
 
     destroy(session: AnySession) {

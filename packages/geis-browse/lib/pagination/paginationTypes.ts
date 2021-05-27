@@ -1,7 +1,5 @@
-import { BrowseActions } from '../actions'
+import { CreatePaginatorAttrs } from './paginationAttrs'
 
-export interface Paginator {
-    while: string | null
-    take: number | null
-    actions: BrowseActions[]
+export interface Paginator extends CreatePaginatorAttrs {
+    page: number
 }

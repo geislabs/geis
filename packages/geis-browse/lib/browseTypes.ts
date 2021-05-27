@@ -2,13 +2,13 @@ import { ResourceProvider } from '@geislabs/geis-resource'
 import {
     AnyAction,
     ClickAction,
-    PaginateAction,
     PaginateActions,
     TakeAction,
     WaitAction,
     WhileAction,
 } from './actions'
-import { AnySession, SuccessSession, SessionStatus } from './sessions'
+import { Paginator } from './pagination/paginationTypes'
+import { AnySession, SessionStatus } from './sessions'
 
 export interface Browser {
     status: SessionStatus
@@ -36,7 +36,7 @@ export interface BrowseType extends ResourceProvider<AnyAction[], AnySession> {
      * Paginate pages
      * @param selector
      */
-    paginate: (...actions: PaginateActions[]) => PaginateAction
+    paginate: ResourceProvider<PaginateActions[], AnySession, Paginator>
     /**
      * Paginate pages
      * @param selector
@@ -48,6 +48,24 @@ export interface BrowseType extends ResourceProvider<AnyAction[], AnySession> {
      */
     take: (count: number) => TakeAction
 }
+
+export type PaginatePromiseCallbackFn<T> = (
+    session: AnySession,
+    context: Paginator
+) => Promise<T>
+export type PaginateGeneratorCallbackFn<T> = (
+    session: AnySession,
+    context: Paginator
+) => Generator<T>
+export type PaginateAsyncGeneratorCallbackFn<T> = (
+    session: AnySession,
+    context: Paginator
+) => AsyncGenerator<T>
+
+export type PaginateAnyCallbackFn<T> =
+    | PaginatePromiseCallbackFn<T>
+    | PaginateGeneratorCallbackFn<T>
+    | PaginateAsyncGeneratorCallbackFn<T>
 
 export type PromiseCallbackFn<T> = (session: AnySession) => Promise<T>
 export type GeneratorCallbackFn<T> = (session: AnySession) => Generator<T>
@@ -61,5 +79,4 @@ export type AnyCallbackFn<T> =
     | AsyncGeneratorCallbackFn<T>
 
 export type Arg1<T> = AnyCallbackFn<T> | AnyAction[]
-
 export type Arg2<T> = AnyCallbackFn<T>

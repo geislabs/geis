@@ -27,9 +27,8 @@ export interface TakeAction extends ActionBase<'take'> {
 }
 
 export type PaginateActions = WhileAction | TakeAction | BrowseActions
-export type BrowseActions =
-    | WaitAction
-    | ClickAction
-    | GotoAction
-    | PaginateAction
+
+export type BrowseActions = WaitAction | ClickAction | GotoAction
+// | PaginateAction
+
 export type AnyAction = BrowseActions | PaginateActions

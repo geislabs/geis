@@ -1,52 +1,70 @@
 import util from 'util'
 import { invoke, ResourceCallback } from '@geislabs/geis-resource'
 import { AnySession, SessionAdapter } from '../sessions'
-import { AnyAction, BrowseActions } from './actionTypes'
 import { buildPagination } from '../pagination/paginationFactory'
 import {
     AnyCallbackFn,
     AsyncGeneratorCallbackFn,
     GeneratorCallbackFn,
+    PaginateAnyCallbackFn,
+    PaginateAsyncGeneratorCallbackFn,
+    PaginateGeneratorCallbackFn,
+    PaginatePromiseCallbackFn,
     PromiseCallbackFn,
 } from '../browseTypes'
+import { AnyAction, BrowseActions, PaginateActions } from '../actions'
+import { Paginator } from './paginationTypes'
+import { isBrowse } from './paginationGuards'
 
-export function perform<T>(
+export function performPagination<T>(
     adapter: SessionAdapter,
     url: string,
-    actions: BrowseActions[],
-    callback: PromiseCallbackFn<T>
+    actions: PaginateActions[],
+    callback: PaginatePromiseCallbackFn<T>
 ): Promise<T>
-export function perform<T>(
+export function performPagination<T>(
     adapter: SessionAdapter,
     url: string,
-    actions: BrowseActions[],
-    callback: GeneratorCallbackFn<T>
+    actions: PaginateActions[],
+    callback: PaginateGeneratorCallbackFn<T>
 ): AsyncGenerator<T>
-export function perform<T>(
+export function performPagination<T>(
     adapter: SessionAdapter,
     url: string,
-    actions: BrowseActions[],
-    callback: AsyncGeneratorCallbackFn<T>
+    actions: PaginateActions[],
+    callback: PaginateAsyncGeneratorCallbackFn<T>
 ): AsyncGenerator<T>
-export function perform<T>(
+export function performPagination<T>(
     adapter: SessionAdapter,
     url: string,
-    actions: BrowseActions[],
-    callback: AnyCallbackFn<T>
+    actions: PaginateActions[],
+    callback: PaginateAnyCallbackFn<T>
 ) {
+    const paginator = buildPagination(actions)
+    const browseactions = actions.filter(isBrowse)
     if (isGenerator(callback)) {
         return (async function* () {
             yield* invoke(
                 adapter,
                 { url, actions: [] },
                 async function* (session) {
-                    const performed = await doPerform(
-                        adapter,
-                        session,
-                        actions,
-                        callback
-                    )
-                    yield* callback(performed)
+                    let page = 0
+                    while (true) {
+                        const performed = await doPerform(
+                            adapter,
+                            session,
+                            browseactions
+                        )
+                        yield* callback(performed, { ...paginator, page })
+                        const condition = await adapter.has(
+                            session,
+                            paginator.while!
+                        )
+                        page++
+                        if (condition === false) {
+                            break
+                        }
+                    }
                 }
             )
         })()
@@ -60,23 +78,17 @@ export function perform<T>(
                     const performed = await doPerform(
                         adapter,
                         session,
-                        actions,
-                        callback
+                        browseactions
                     )
-                    yield* callback(performed)
+                    yield* callback(performed, paginator)
                 }
             )
         })()
     }
     return new Promise(async (resolve, reject) => {
         return invoke(adapter, { url, actions: [] }, async function (session) {
-            const performed = await doPerform(
-                adapter,
-                session,
-                actions,
-                callback
-            )
-            const result = await callback(performed)
+            const performed = await doPerform(adapter, session, browseactions)
+            const result = await callback(performed, paginator)
             return resolve(result)
         }).catch(reject)
     })
@@ -85,8 +97,7 @@ export function perform<T>(
 function doPerform<T>(
     adapter: SessionAdapter,
     session: AnySession,
-    actions: BrowseActions[],
-    callback: AnyCallbackFn<T>
+    actions: BrowseActions[]
 ) {
     return actions.reduce(async (promiseAcc, action) => {
         let acc = await promiseAcc
@@ -105,13 +116,13 @@ function doPerform<T>(
 }
 
 function isAsyncGenerator<TOut>(
-    callback: AnyCallbackFn<TOut>
-): callback is (resource: AnySession) => AsyncGenerator<TOut> {
+    callback: PaginateAnyCallbackFn<TOut>
+): callback is PaginateAsyncGeneratorCallbackFn<TOut> {
     return callback.toString().includes('asyncGenerator')
 }
 
 function isGenerator<TOut>(
-    callback: AnyCallbackFn<TOut>
-): callback is (resource: AnySession) => Generator<TOut> {
+    callback: PaginateAnyCallbackFn<TOut>
+): callback is PaginateGeneratorCallbackFn<TOut> {
     return util.types.isGeneratorFunction(callback)
 }
