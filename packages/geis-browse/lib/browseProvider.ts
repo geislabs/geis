@@ -1,7 +1,7 @@
 import { BrowseProviderConfig } from './browseConfig'
 import { Arg1, Arg2, BrowseType } from './browseTypes'
 import * as facade from './browseFacade'
-import { wait, click, goto } from './actions'
+import { wait, click, goto, paginate, _while, take } from './actions'
 import { AnySession } from './sessions'
 
 export function config(globalConfig: BrowseProviderConfig = {}): BrowseType {
@@ -21,6 +21,9 @@ export function config(globalConfig: BrowseProviderConfig = {}): BrowseType {
             wait,
             click,
             goto,
+            paginate,
+            while: _while,
+            take,
         }
     )
 }

@@ -6,6 +6,7 @@ import {
     SessionStatus,
     AnySession,
     isReused,
+    SuccessSession,
 } from '../sessions'
 import { BrowseTestConfig } from './testConfig'
 import { ContentMap } from './testValues'
@@ -25,7 +26,6 @@ export class BrowseTestAdapter implements SessionAdapter {
     async create(attrs: AnySessionAttrs): Promise<AnySession> {
         const location = isReused(attrs) ? attrs.session.location : attrs.url
         const actions = attrs.actions
-
         let nextlocation = actions.reduce((acc, action) => {
             if (action.kind !== 'goto') {
                 return acc
@@ -36,7 +36,7 @@ export class BrowseTestAdapter implements SessionAdapter {
         }, location)
 
         const pageContent = this.#content[nextlocation]
-        const rendered = applyActions(pageContent, actions)
+        const rendered = applyActions(pageContent, [])
 
         if (!rendered) {
             throw new Error(`location '${nextlocation}' not found`)
@@ -50,6 +50,29 @@ export class BrowseTestAdapter implements SessionAdapter {
             toString: () => rendered ?? '<html>hello</html>',
             toInteger: () => 15 ?? null,
         }
+
+        return new Proxy<AnySession>(original, {
+            get(target, prop) {
+                if (target.hasOwnProperty(prop)) {
+                    // @ts-expect-error
+                    return Reflect.get(...arguments)
+                }
+                return original.parse(prop.toString())
+            },
+        })
+    }
+
+    async click(session: AnySession, selector: string) {
+        const pageContent = this.#content[session.location]
+        const rendered = applyActions(pageContent, [
+            { kind: 'click', selector },
+        ])
+        this.#content[session.resourceId] = rendered
+        const original = {
+            ...session,
+            parse: (selector) => Html(rendered, selector, { file: this.file }),
+            toString: () => rendered,
+        } as SuccessSession
 
         return new Proxy<AnySession>(original, {
             get(target, prop) {

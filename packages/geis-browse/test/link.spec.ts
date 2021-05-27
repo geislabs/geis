@@ -20,7 +20,7 @@ describe('links', () => {
             },
         })
     })
-    test('invalid link', async () => {
+    test.skip('invalid link', async () => {
         await expect(
             browse('http://google.com', (session) => ({
                 link: session['p'].toLink(),

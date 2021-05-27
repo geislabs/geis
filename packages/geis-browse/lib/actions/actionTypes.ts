@@ -14,4 +14,22 @@ export interface GotoAction extends ActionBase<'goto'> {
     path: string
 }
 
-export type AnyAction = WaitAction | ClickAction | GotoAction
+export interface PaginateAction extends ActionBase<'paginate'> {
+    actions: Exclude<AnyAction, PaginateAction>[]
+}
+
+export interface WhileAction extends ActionBase<'while'> {
+    selector: string
+}
+
+export interface TakeAction extends ActionBase<'take'> {
+    count: number
+}
+
+export type PaginateActions = WhileAction | TakeAction | BrowseActions
+export type BrowseActions =
+    | WaitAction
+    | ClickAction
+    | GotoAction
+    | PaginateAction
+export type AnyAction = BrowseActions | PaginateActions

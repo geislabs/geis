@@ -65,7 +65,7 @@ export function invoke<TConf, TRes, TOut>(
                 const result = await apply(callback(resource))
                 await adapter.destroy(resource)
                 // @ts-expect-error
-                resolve(result)
+                return resolve(result)
             } catch (error) {
                 if (resource) {
                     await adapter.destroy(resource)
