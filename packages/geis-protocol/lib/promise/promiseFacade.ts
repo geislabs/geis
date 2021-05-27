@@ -1,4 +1,4 @@
-import { ProtocolAdapter } from '../protocolTypes'
+import { ProtocolAdapter } from '../protocolAdapter'
 import { PromiseCallbackFn, SyncCallbackFn } from '../protocolValues'
 
 export function runPromise<TType, TInit, TValue>(

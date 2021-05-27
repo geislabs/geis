@@ -11,6 +11,9 @@ export class JsonPathImpl implements JsonPath {
     toInteger() {
         return Number(this.toString())
     }
+    toBoolean() {
+        return Boolean(this.toString())
+    }
     toObject() {
         return this.config.value
     }
