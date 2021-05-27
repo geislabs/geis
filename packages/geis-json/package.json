@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@geislabs/geis-json",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -29,6 +29,6 @@
         "jsonpath": "^1.1.1"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "^0.0.20"
+        "@geislabs/geis-type": "^0.0.21"
     }
 }
