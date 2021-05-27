@@ -1,6 +1,6 @@
 {
-    "private": true,
-    "name": "@geislabs/geis-json",
+    "private": false,
+    "name": "@geislabs/geis-protocol",
     "version": "0.0.23",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
@@ -26,10 +26,9 @@
     },
     "dependencies": {
         "inversify": "^5.0.5",
-        "jsonpath": "^1.1.1"
+        "is-promise": "^4.0.0"
     },
     "devDependencies": {
-        "@geislabs/geis-type": "^0.0.23",
-        "@geislabs/geis-core": "^0.0.23"
+        "@geislabs/geis-type": "^0.0.23"
     }
 }
