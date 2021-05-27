@@ -3,9 +3,10 @@
     "exclude": ["dist"],
     "include": ["lib"],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "esnext",
         "outDir": "./dist",
         "rootDir": "lib",
-        "declaration": true
+        "declaration": true,
+        "emitDeclarationOnly": false
     }
 }
