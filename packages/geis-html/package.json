@@ -1,5 +1,5 @@
 {
-    "private": true,
+    "private": false,
     "name": "@geislabs/geis-html",
     "version": "0.0.21",
     "description": "> TODO: description",
