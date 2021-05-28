@@ -26,12 +26,21 @@ export interface ArrayType<TElem extends CustomType = CustomType> {
     schema: z.ZodArray<TElem['schema']>
 }
 
+export type GetValueType<T extends TypeConstructor | CustomType> =
+    T extends TypeConstructor<any, infer U>
+        ? z.infer<U>
+        : T extends CustomType<any, infer U>
+        ? z.infer<U>
+        : never
+
 export type TypeConstructor<
     T extends CustomType<any> = CustomType<any>,
     TInner extends z.ZodSchema<any> = T extends CustomType<any, infer U>
         ? U
         : never
 > = (...validators: Validator<TInner>[]) => T
+
+export type Typeable = TypeConstructor<any, any> | CustomType<any, any>
 
 export type MaybeType<T extends CustomType> = CustomType<
     T extends CustomType<infer U> ? U : never,

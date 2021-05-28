@@ -6,6 +6,7 @@ import {
     TypeConstructor,
     ApplyValue,
 } from './typeTypes'
+import { capitalize } from './typeUtils'
 
 /**
  * Attempt to cast value to target type
@@ -41,9 +42,4 @@ export function cast<
     }
     const casted = handler()
     return type.schema.parse(casted)
-}
-
-function capitalize<T extends string>(value: T): `${Capitalize<T>}` {
-    return (value.charAt(0).toUpperCase() +
-        value.slice(1)) as `${Capitalize<T>}`
 }

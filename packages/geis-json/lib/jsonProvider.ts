@@ -13,13 +13,18 @@ export function Json(
             value: inner,
             provide,
         })
-        return proxify<JsonPath>(instance)
+        return instance
+        // return proxify<JsonPath>(instance)
     }
 
     const value =
         typeof content === 'string' ? (JSON.parse(content) as object) : content
 
-    return provide(value)
+    const instance = provide([value])
+    if (path) {
+        return instance.parse(path)
+    }
+    return instance
 }
 
 function proxify<T extends object & { parse: (selector: string) => T }>(
@@ -27,7 +32,11 @@ function proxify<T extends object & { parse: (selector: string) => T }>(
 ): T {
     return new Proxy<T>(value, {
         get(target, prop) {
-            if (prop in target || typeof prop === 'symbol') {
+            if (
+                prop in target ||
+                typeof prop === 'symbol' ||
+                prop.toString().startsWith('$$')
+            ) {
                 // @ts-expect-error
                 return Reflect.get(...arguments)
             }

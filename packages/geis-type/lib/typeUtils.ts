@@ -1,3 +1,6 @@
+import { isConstructor } from './typeGuards'
+import { CustomType, Typeable } from './typeTypes'
+
 /**
  * Recursive type transformation. Support scalar, object, array, and tuple as original type.
  * @example
@@ -27,3 +30,15 @@ type UnionReplacement<M extends [any, any], T> =
     | DeepReplace<Extract<T, object>, M> // Replace all object types of the union
     | Exclude<T, M[0] | object> // Get all types that are not objects (handled above) or M[0] (handled below)
 // | M[1]; // Direct Replacement of M[0]
+
+export function getName(typeable: Typeable) {
+    const { kind } = isConstructor(typeable)
+        ? typeable()
+        : (typeable as CustomType)
+    return `to${capitalize(kind)}`
+}
+
+export function capitalize<T extends string>(value: T): `${Capitalize<T>}` {
+    return (value.charAt(0).toUpperCase() +
+        value.slice(1)) as `${Capitalize<T>}`
+}

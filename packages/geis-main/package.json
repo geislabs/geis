@@ -28,6 +28,7 @@
         "@geislabs/geis-core": "^0.0.23",
         "@geislabs/geis-file": "^0.0.23",
         "@geislabs/geis-html": "^0.0.23",
+        "@geislabs/geis-json": "^0.0.23",
         "@geislabs/geis-image": "^0.0.23",
         "@geislabs/geis-resource": "^0.0.23",
         "@geislabs/geis-type": "^0.0.23",

@@ -1,30 +1,44 @@
+import { GetValueType, Typeable } from '@geislabs/geis-type'
 import autobind from 'autobind-decorator'
+import { parseArray } from './array/arrayFacade'
+import { parseBoolean } from './boolean/booleanFacade'
+import { parseInteger } from './integer/integerFacade'
+import { buildIterator } from './iterator/iteratorFacade'
 import { JsonConfig } from './jsonConfig'
 import { JsonPath } from './jsonTypes'
+import { parseObject } from './object/objectFacade'
+import { parse } from './parse/parseFacade'
+import { parseString } from './string/stringFacade'
 
 @autobind
 export class JsonPathImpl implements JsonPath {
     constructor(private config: JsonConfig) {}
-    toString() {
-        return JSON.stringify(this.config.value)
+
+    toString(value = this.config.value) {
+        return parseString(value)
     }
-    toInteger() {
-        return Number(this.toString())
+
+    toInteger(value = this.config.value[0]) {
+        return parseInteger(value)
     }
-    toBoolean() {
-        return Boolean(this.toString())
+
+    toBoolean(value = this.toString()) {
+        return parseBoolean(value)
     }
+
+    toArray<T extends Typeable>(type: T): GetValueType<T>[] | Error | null {
+        return parseArray<T>(this.config.value, type, this)
+    }
+
     toObject() {
-        return this.config.value
+        return parseObject(this.config.value)
     }
+
     parse(selector: string) {
-        // @ts-expect-error
-        const nested = this.config.value[selector]
-        return this.config.provide(nested)
+        return parse(this.config.provide, this.config.value, selector)
     }
+
     [Symbol.iterator](): Iterator<JsonPath> {
-        return {
-            next: () => ({ value: null, done: true }),
-        }
+        return buildIterator(this.config.provide, this.config.value)
     }
 }

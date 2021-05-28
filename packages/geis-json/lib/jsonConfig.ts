@@ -1,8 +1,10 @@
 import { JsonPath } from './jsonTypes'
 
-export type JsonPathProvideFn = (value: object) => JsonPath
+export type JsonValue = object | string | number | boolean
+export type JsonPathProvideFn = (value: JsonSelection) => JsonPath
+export type JsonSelection = JsonValue[]
 
 export interface JsonConfig {
-    value: object
+    value: JsonSelection
     provide: JsonPathProvideFn
 }
