@@ -5,14 +5,14 @@ import {
     GeneratorCallbackFn,
 } from '../protocolValues'
 
-export function isAsyncGenerator<TType, TValue>(
-    callback: AnyCallbackFn<TType, TValue>
-): callback is AsyncGeneratorCallbackFn<TType, TValue> {
+export function isAsyncGenerator<TType, TValue, TContext>(
+    callback: AnyCallbackFn<TType, TValue, TContext>
+): callback is AsyncGeneratorCallbackFn<TType, TValue, TContext> {
     return callback.toString().includes('asyncGenerator')
 }
 
-export function isGenerator<TType, TValue>(
-    callback: AnyCallbackFn<TType, TValue>
-): callback is GeneratorCallbackFn<TType, TValue> {
+export function isGenerator<TType, TValue, TContext>(
+    callback: AnyCallbackFn<TType, TValue, TContext>
+): callback is GeneratorCallbackFn<TType, TValue, TContext> {
     return util.types.isGeneratorFunction(callback)
 }

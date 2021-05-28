@@ -108,7 +108,19 @@ export function run<
         })
     }
     if (isGenerator(callback) || isAsyncGenerator(callback)) {
-        return runGenerator(subprotocol, location, config, callback)
+        return runGenerator(
+            subprotocol,
+            location,
+            config,
+            // @ts-expect-error
+            callback
+        )
     }
-    return runPromise(subprotocol, location, config, callback)
+    return runPromise(
+        subprotocol,
+        location,
+        config,
+        // @ts-expect-error
+        callback
+    )
 }

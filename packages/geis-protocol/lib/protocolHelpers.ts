@@ -1,4 +1,4 @@
-import { GetInit, GetType } from './protocolFacade'
+import { GetContext, GetInit, GetType } from './protocolFacade'
 import { Protocol } from './protocolTypes'
 import { AnyCallbackFn } from './protocolValues'
 
@@ -8,10 +8,14 @@ export function getCallback<
     TValue
 >(
     arg1:
-        | AnyCallbackFn<GetType<TProto, TUrl>, TValue>
+        | AnyCallbackFn<GetType<TProto, TUrl>, TValue, GetContext<TProto, TUrl>>
         | GetInit<TProto, TUrl>[],
-    arg2: AnyCallbackFn<GetType<TProto, TUrl>, TValue>
-): AnyCallbackFn<GetType<TProto, TUrl>, TValue> | null {
+    arg2: AnyCallbackFn<GetType<TProto, TUrl>, TValue, GetContext<TProto, TUrl>>
+): AnyCallbackFn<
+    GetType<TProto, TUrl>,
+    TValue,
+    GetContext<TProto, TUrl>
+> | null {
     if (typeof arg1 === 'function') {
         return arg1
     }
@@ -27,7 +31,7 @@ export function getConfig<
     TValue
 >(
     arg1?:
-        | AnyCallbackFn<GetType<TProto, TUrl>, TValue>
+        | AnyCallbackFn<GetType<TProto, TUrl>, TValue, GetContext<TProto, TUrl>>
         | GetInit<TProto, TUrl>[]
 ): GetInit<TProto, TUrl>[] {
     if (Array.isArray(arg1)) {
