@@ -1,7 +1,13 @@
 import { runGenerator } from './generator/generatorFacade'
 import { isAsyncGenerator, isGenerator } from './generator/generatorGuards'
 import { runPromise } from './promise/promiseFacade'
-import { ProtocolAdapter } from './protocolAdapter'
+import { getCallback, getConfig, getLocation } from './protocolHelpers'
+import {
+    Protocol,
+    // ProtocolFn,
+    ProtocolResponse,
+    Subprotocol,
+} from './protocolTypes'
 import {
     AnyCallbackFn,
     AnyGeneratorCallbackFn,
@@ -9,23 +15,88 @@ import {
     SyncCallbackFn,
 } from './protocolValues'
 
-export function run<TType, TInit, TValue>(
-    protocol: ProtocolAdapter<TType, TInit>,
-    config: TInit,
-    callback: AnyGeneratorCallbackFn<TType, TValue>
+export type GetKey<TProto extends Protocol, TUrl extends string> =
+    TUrl extends `${infer U & string}://${string}` ? U & keyof TProto : never
+
+export type GetImpl<TProto extends Protocol, TUrl extends string> =
+    TProto[GetKey<TProto, TUrl>]
+
+export type GetInit<TProto extends Protocol, TUrl extends string> = GetImpl<
+    TProto,
+    TUrl
+> extends Subprotocol<string, infer TInit>
+    ? TInit
+    : []
+
+export type GetType<TProto extends Protocol, TUrl extends string> = GetImpl<
+    TProto,
+    TUrl
+> extends Subprotocol<string, any, any, any, infer TRes>
+    ? TRes
+    : never
+
+export function run<
+    TProto extends Protocol,
+    TUrl extends `${keyof TProto & string}://${string}`,
+    TValue
+>(
+    protocol: TProto,
+    url: TUrl,
+    config: GetInit<TProto, TUrl>[],
+    callback: AnyGeneratorCallbackFn<GetType<TProto, TUrl>, TValue>
 ): AsyncGenerator<TValue>
-export function run<TType, TInit, TValue>(
-    protocol: ProtocolAdapter<TType, TInit>,
-    config: TInit,
-    callback: PromiseCallbackFn<TType, TValue> | SyncCallbackFn<TType, TValue>
+export function run<
+    TProto extends Protocol,
+    TUrl extends `${keyof TProto & string}://${string}`,
+    TValue
+>(
+    protocol: TProto,
+    url: TUrl,
+    config: GetInit<TProto, TUrl>[],
+    callback:
+        | PromiseCallbackFn<GetType<TProto, TUrl>, TValue>
+        | SyncCallbackFn<GetType<TProto, TUrl>, TValue>
 ): Promise<TValue>
-export function run<TType, TInit, TValue>(
-    protocol: ProtocolAdapter<TType, TInit>,
-    config: TInit,
-    callback: AnyCallbackFn<TType, TValue>
+export function run<
+    TProto extends Protocol,
+    TUrl extends `${keyof TProto & string}://${string}`,
+    TValue
+>(
+    protocol: TProto,
+    url: TUrl,
+    arg1:
+        | GetInit<TProto, TUrl>[]
+        | AnyCallbackFn<GetType<TProto, TUrl>, TValue>,
+    arg2: AnyCallbackFn<GetType<TProto, TUrl>, TValue>
 ) {
-    if (isGenerator(callback) || isAsyncGenerator(callback)) {
-        return runGenerator(protocol, config, callback)
+    const callback = getCallback(arg1, arg2)
+    const config = getConfig(arg1)
+    const location = getLocation(url)
+    const [protocolId] = url.split('://')
+    const subprotocol = protocol[protocolId]
+    if (!callback) {
+        return new Promise(async (resolve) => {
+            const request = await subprotocol.parse(location, config)
+            const source = subprotocol.eval(request)
+            for await (const value of source) {
+                return resolve(value)
+            }
+        })
     }
-    return runPromise(protocol, config, callback)
+    if (isGenerator(callback) || isAsyncGenerator(callback)) {
+        return runGenerator(
+            subprotocol,
+            location,
+            config,
+            // @ts-expect-error
+            callback
+        )
+    }
+    return runPromise(
+        subprotocol,
+        location,
+        config,
+        // @ts-expect-error
+        callback
+    )
 }

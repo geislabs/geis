@@ -1,6 +1,7 @@
+import { ProtocolResponse } from '../fetchTypes'
 import { FetchRequest } from '../request'
 
-export interface FetchResponse<T = unknown> {
+export interface FetchResponse<T = unknown> extends ProtocolResponse<T> {
     data: T
     request: FetchRequest<T>
 }

@@ -1,3 +1,5 @@
+import { ProtocolResponse } from './protocolTypes'
+
 export type SyncCallbackFn<TType, TValue> = (session: TType) => TValue
 
 export type PromiseCallbackFn<TType, TValue> = (
