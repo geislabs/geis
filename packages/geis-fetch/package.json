@@ -1,7 +1,7 @@
 {
     "private": false,
     "name": "@geislabs/geis-fetch",
-    "version": "0.0.31",
+    "version": "0.0.32",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -28,10 +28,10 @@
         "node-fetch": "^2.6.1"
     },
     "devDependencies": {
-        "@geislabs/geis-html": "^0.0.31",
-        "@geislabs/geis-json": "^0.0.31",
-        "@geislabs/geis-protocol": "^0.0.31",
-        "@geislabs/geis-type": "^0.0.31",
+        "@geislabs/geis-html": "^0.0.32",
+        "@geislabs/geis-json": "^0.0.32",
+        "@geislabs/geis-protocol": "^0.0.32",
+        "@geislabs/geis-type": "^0.0.32",
         "@types/node-fetch": "^2.5.10"
     }
 }
