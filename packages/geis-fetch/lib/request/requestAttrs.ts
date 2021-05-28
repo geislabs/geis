@@ -4,7 +4,3 @@ export interface CreateRequestAttrs {
     method?: string
     body?: string
 }
-
-// export type StringRequestAttrs = string
-
-export type AnyRequestAttrs = CreateRequestAttrs

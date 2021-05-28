@@ -1,4 +1,3 @@
-import { FetchProtocolMap } from './fetchTypes'
 import { FetchRequest } from './request'
 
 export type FetchFn<T = any> = (
@@ -7,5 +6,4 @@ export type FetchFn<T = any> = (
 
 export interface FetchConfig<T = any> {
     adapter: FetchFn<T>
-    protocols: FetchProtocolMap
 }
