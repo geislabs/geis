@@ -1,7 +1,7 @@
 import { createProtocol } from '@geislabs/geis-protocol'
 import { header, body } from './config'
 import { FetchFn } from './fetchConfig'
-import { FetchProtocol } from './fetchTypes'
+import { FetchProtocolFn } from './fetchTypes'
 import { createJson } from './json/jsonFacade'
 import { nodeFetch } from './node/nodeFacade'
 
@@ -10,7 +10,7 @@ import { nodeFetch } from './node/nodeFacade'
  * @param adapter
  * @returns
  */
-export const config = (adapter: FetchFn = nodeFetch): FetchProtocol =>
+export const config = (adapter: FetchFn = nodeFetch): FetchProtocolFn =>
     Object.assign(
         createProtocol({
             json: createJson(adapter),
@@ -24,4 +24,4 @@ export const config = (adapter: FetchFn = nodeFetch): FetchProtocol =>
 /**
  * Fetch resources
  */
-export const fetch: FetchProtocol = config(nodeFetch)
+export const fetch: FetchProtocolFn = config(nodeFetch)

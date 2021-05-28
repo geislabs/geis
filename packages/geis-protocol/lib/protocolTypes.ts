@@ -10,24 +10,10 @@ export interface Subprotocol<
     TRes = any
 > {
     name: TName
-    // encode: (value: TValue) => string
-    // decode: (value: string) => TValue
     parse: (url: string, init: TInit[]) => Promise<TReq>
     eval: (request: TReq) => AsyncGenerator<TRes>
     dispose: (resouce: TRes) => Promise<void>
 }
-
-// export type SubProtocolMap<TProto extends Subprotocol = Subprotocol> = {
-//     [P in TProto['name']]: TProto extends Subprotocol<
-//         P,
-//         infer TInit,
-//         infer TValue,
-//         infer TReq,
-//         infer TRes
-//     >
-//         ? Subprotocol<P, TInit, TValue, TReq, TRes>
-//         : never
-// }
 
 export type Protocol<TSub extends Subprotocol = Subprotocol> = {
     [P in TSub['name']]: Extract<TSub, { name: P }>
