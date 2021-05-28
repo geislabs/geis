@@ -1,17 +1,19 @@
 import { ProtocolAdapter } from './protocolAdapter'
-import { GetInit, GetType } from './protocolFacade'
-import { AnyGeneratorCallbackFn } from './protocolValues'
+import { GetContext, GetInit, GetType } from './protocolFacade'
+import { AnyGeneratorCallbackFn, PromiseCallbackFn } from './protocolValues'
 
 export interface Subprotocol<
     TName extends string = string,
     TInit = any,
     TValue = any,
     TReq = any,
-    TRes = any
+    TRes = any,
+    TContext = any
 > {
     name: TName
+    init: () => Promise<TContext>
     parse: (url: string, init: TInit[]) => Promise<TReq>
-    eval: (request: TReq) => AsyncGenerator<TRes>
+    eval: (request: TReq, context: TContext) => AsyncGenerator<TRes>
     dispose: (resouce: TRes) => Promise<void>
 }
 
@@ -26,19 +28,31 @@ export interface ProtocolFn<
     // Promises
     <TUrl extends `${keyof TProto & string}://${string}`, TValue>(
         url: TUrl,
-        callback: (type: GetType<TProto, TUrl>) => Promise<TValue>,
+        callback: PromiseCallbackFn<
+            GetType<TProto, TUrl>,
+            TValue,
+            GetContext<TProto, TUrl>
+        >,
         globals?: Partial<TGlobals>
     ): Promise<TValue>
     <TUrl extends `${keyof TProto & string}://${string}`, TValue>(
         url: TUrl,
         init: GetInit<TProto, TUrl>[],
-        callback: (type: GetType<TProto, TUrl>) => Promise<TValue>,
+        callback: PromiseCallbackFn<
+            GetType<TProto, TUrl>,
+            TValue,
+            GetContext<TProto, TUrl>
+        >,
         globals?: Partial<TGlobals>
     ): Promise<TValue>
     // Generators
     <TUrl extends `${keyof TProto & string}://${string}`, TValue>(
         url: TUrl,
-        callback: AnyGeneratorCallbackFn<GetType<TProto, TUrl>, TValue>,
+        callback: AnyGeneratorCallbackFn<
+            GetType<TProto, TUrl>,
+            TValue,
+            GetContext<TProto, TUrl>
+        >,
         globals?: Partial<TGlobals>
     ): AsyncGenerator<TValue>
     // fetch('...', { ... })

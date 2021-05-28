@@ -1,6 +1,10 @@
 import { createProtocol, Subprotocol, Protocol } from '../../lib'
 import { FetchConfig } from './testTypes'
 
+export interface TestContext {
+    context: boolean
+}
+
 export interface TestRequest {
     headers: object
 }
@@ -16,7 +20,8 @@ export interface TestTextProtocol
         FetchConfig,
         string,
         TestRequest,
-        TestResponse<string>
+        TestResponse<string>,
+        TestContext
     > {}
 
 export interface TestJsonProtocol
@@ -25,7 +30,8 @@ export interface TestJsonProtocol
         FetchConfig,
         object,
         TestRequest,
-        TestResponse<object>
+        TestResponse<object>,
+        TestContext
     > {}
 
 export type TestProtocol = Protocol<TestTextProtocol | TestJsonProtocol>
@@ -37,6 +43,7 @@ export const createFetch = (
     createProtocol<TestProtocol>({
         text: {
             name: 'text',
+            init: async () => ({ context: true }),
             parse: async (_url, init) => ({
                 headers: init.reduce(
                     (acc, config) => ({ ...acc, [config.name]: config.value }),
@@ -51,6 +58,7 @@ export const createFetch = (
         },
         json: {
             name: 'json',
+            init: async () => ({ context: true }),
             parse: async (_url, init) => ({
                 headers: init.reduce(
                     (acc, config) => ({ ...acc, [config.name]: config.value }),

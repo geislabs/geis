@@ -9,6 +9,7 @@ export const createJson = (
     adapter: FetchFn
 ): FetchSubProtocol<'json', AnyConfig, object, JsonPath> => ({
     name: 'json',
+    init: async () => null,
     parse: async (location, init) => {
         const url = new URL(`https://${location}`)
         const headers = init.filter(isHeader)

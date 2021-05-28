@@ -35,6 +35,13 @@ export type GetType<TProto extends Protocol, TUrl extends string> = GetImpl<
     ? TRes
     : never
 
+export type GetContext<TProto extends Protocol, TUrl extends string> = GetImpl<
+    TProto,
+    TUrl
+> extends Subprotocol<string, any, any, any, any, infer TContext>
+    ? TContext
+    : never
+
 export function run<
     TProto extends Protocol,
     TUrl extends `${keyof TProto & string}://${string}`,
@@ -43,7 +50,11 @@ export function run<
     protocol: TProto,
     url: TUrl,
     config: GetInit<TProto, TUrl>[],
-    callback: AnyGeneratorCallbackFn<GetType<TProto, TUrl>, TValue>
+    callback: AnyGeneratorCallbackFn<
+        GetType<TProto, TUrl>,
+        TValue,
+        GetContext<TProto, TUrl>
+    >
 ): AsyncGenerator<TValue>
 export function run<
     TProto extends Protocol,
@@ -54,8 +65,16 @@ export function run<
     url: TUrl,
     config: GetInit<TProto, TUrl>[],
     callback:
-        | PromiseCallbackFn<GetType<TProto, TUrl>, TValue>
-        | SyncCallbackFn<GetType<TProto, TUrl>, TValue>
+        | PromiseCallbackFn<
+              GetType<TProto, TUrl>,
+              TValue,
+              GetContext<TProto, TUrl>
+          >
+        | SyncCallbackFn<
+              GetType<TProto, TUrl>,
+              TValue,
+              GetContext<TProto, TUrl>
+          >
 ): Promise<TValue>
 export function run<
     TProto extends Protocol,
@@ -66,8 +85,12 @@ export function run<
     url: TUrl,
     arg1:
         | GetInit<TProto, TUrl>[]
-        | AnyCallbackFn<GetType<TProto, TUrl>, TValue>,
-    arg2: AnyCallbackFn<GetType<TProto, TUrl>, TValue>
+        | AnyCallbackFn<
+              GetType<TProto, TUrl>,
+              TValue,
+              GetContext<TProto, TUrl>
+          >,
+    arg2: AnyCallbackFn<GetType<TProto, TUrl>, TValue, GetContext<TProto, TUrl>>
 ) {
     const callback = getCallback(arg1, arg2)
     const config = getConfig(arg1)
@@ -76,27 +99,16 @@ export function run<
     const subprotocol = protocol[protocolId]
     if (!callback) {
         return new Promise(async (resolve) => {
+            const context = await subprotocol.init()
             const request = await subprotocol.parse(location, config)
-            const source = subprotocol.eval(request)
+            const source = subprotocol.eval(request, context)
             for await (const value of source) {
                 return resolve(value)
             }
         })
     }
     if (isGenerator(callback) || isAsyncGenerator(callback)) {
-        return runGenerator(
-            subprotocol,
-            location,
-            config,
-            // @ts-expect-error
-            callback
-        )
+        return runGenerator(subprotocol, location, config, callback)
     }
-    return runPromise(
-        subprotocol,
-        location,
-        config,
-        // @ts-expect-error
-        callback
-    )
+    return runPromise(subprotocol, location, config, callback)
 }
