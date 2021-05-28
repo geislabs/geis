@@ -1,5 +1,4 @@
-import { BodyInit } from 'node-fetch'
-import { AnyConfig } from '../config'
+import { AnyConfig, isBody, isHeader } from '../config'
 import { Serdes } from '../serdes'
 import { CreateRequestAttrs } from './requestAttrs'
 import { FetchRequest } from './requestTypes'
@@ -9,21 +8,16 @@ export function buildRequest<T>(
     configs: AnyConfig<T>[],
     attrs: CreateRequestAttrs
 ): FetchRequest<T> {
+    const headers = configs.filter(isHeader)
+    const [body] = configs.filter(isBody)
     return {
         url: attrs.url,
         method: 'get',
-        headers: configs.reduce(
-            (acc, config) =>
-                config.kind === 'header'
-                    ? { ...acc, [config.name]: config.value }
-                    : acc,
+        headers: headers.reduce(
+            (acc, config) => ({ ...acc, [config.name]: config.value }),
             {}
         ),
-        body: configs.reduce<BodyInit>(
-            (acc, config) =>
-                config.kind === 'body' ? serdes.encode(config.value) : acc,
-            ''
-        ),
+        body: body ? serdes.encode(body.value) : undefined,
         serdes,
     }
 }
