@@ -1,4 +1,5 @@
 import browseconfig, { BrowseProviderConfig } from '@geislabs/geis-browse'
+import { fetch, FetchConfig } from '@geislabs/geis-fetch'
 import { cast, apply } from '@geislabs/geis-type'
 import { String, Integer } from '@geislabs/geis-core'
 import { Html, Link } from '@geislabs/geis-html'
@@ -10,9 +11,12 @@ import { Image } from '@geislabs/geis-image'
  * @param config
  * @returns
  */
-export function config(config: BrowseProviderConfig = {}) {
+export function config(
+    config: BrowseProviderConfig & Partial<FetchConfig> = {}
+) {
     return {
         browse: browseconfig(config),
+        fetch,
         cast,
         apply,
         String,

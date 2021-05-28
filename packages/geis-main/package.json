@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@geislabs/geis-browse": "^0.0.24",
+        "@geislabs/geis-fetch": "^0.0.24",
         "@geislabs/geis-core": "^0.0.24",
         "@geislabs/geis-file": "^0.0.24",
         "@geislabs/geis-html": "^0.0.24",

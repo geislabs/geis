@@ -1,5 +1,5 @@
 {
-    "private": true,
+    "private": false,
     "name": "@geislabs/geis-json",
     "version": "0.0.24",
     "description": "> TODO: description",
