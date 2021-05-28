@@ -1,7 +1,7 @@
-import { PromiseCallbackFn } from '@geislabs/geis-protocol'
-import { FetchSubprotocol } from './fetchTypes'
+import { PromiseCallbackFn, ProtocolMap } from '@geislabs/geis-protocol'
 import { AnyConfig } from './config'
-import { FetchConfig, SerdesMap } from './fetchConfig'
+import { FetchConfig } from './fetchConfig'
+import { FetchProtocolMap } from './fetchTypes'
 import { FetchResponse } from './response/responseTypes'
 
 export function getConfigs<TValue>(
@@ -52,10 +52,14 @@ export function getConfig<TValue>(
     return {}
 }
 
-export function getSerdes<TSub extends FetchSubprotocol>(
-    url: `${keyof TSub & string}://${string}`,
-    serdes: SerdesMap
+export function getProtocol<TProto extends FetchProtocolMap>(
+    url: `${keyof TProto & string}://${string}`,
+    protocols: TProto
 ) {
     const [protocol] = url.split('://')
-    return serdes?.[protocol as 'json' | 'html']
+    const found = protocols?.[protocol]
+    if (!found) {
+        throw new Error(`protocol ${protocol} not foind`)
+    }
+    return found
 }

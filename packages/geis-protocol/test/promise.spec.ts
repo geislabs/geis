@@ -1,28 +1,15 @@
-import { run } from '../lib'
-import { TestProtocol } from './support/testFacade'
+import { createFetch } from './support/testFacade'
 
 describe('promise', () => {
     test('simple', async () => {
-        const protocol = new TestProtocol([1])
+        const fetch = createFetch('my response')
         await expect(
-            run(
-                protocol,
-                {
-                    stuff: true,
-                },
-                async () => [1, 2, 3]
-            )
-        ).resolves.toStrictEqual([1, 2, 3])
+            fetch('text://google.com', async (response) => response.data)
+        ).resolves.toBe('my response')
     })
-    test('type', async () => {
-        expect.hasAssertions()
-        const protocol = new TestProtocol([1])
-        await run(
-            protocol,
-            {
-                stuff: true,
-            },
-            async (type) => expect(type).toStrictEqual({ stuff: true })
-        )
+    test('no callback', async () => {
+        const fetch = createFetch('my response')
+        const response = await fetch('text://google.com')
+        expect(response.data).toBe('my response')
     })
 })

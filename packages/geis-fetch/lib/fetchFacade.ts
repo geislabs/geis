@@ -9,12 +9,15 @@ export class FetchAdapter
     constructor(public config: FetchConfig) {}
 
     async create<T>(request: FetchRequest<T>): Promise<FetchResponse<T>> {
-        const response = await this.config.adapter(request)
-        const raw =
-            typeof response.body === 'string'
-                ? response.body
-                : await getStream(response.body)
-        return { data: request.serdes.decode(raw), request }
+        // const response = await this.config.adapter(request)
+        // const raw =
+        //     typeof response.body === 'string'
+        //         ? response.body
+        //         : await getStream(response.body)
+        for await (const response of request.protocol.eval(request)) {
+            return response
+        }
+        throw new Error('no response')
     }
 
     async destroy() {}

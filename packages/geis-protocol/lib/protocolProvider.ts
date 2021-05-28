@@ -1,12 +1,23 @@
-import { run } from './protocolFacade'
-import { ProtocolAdapter } from './protocolAdapter'
+import { GetInit, GetType, run } from './protocolFacade'
 import { AnyCallbackFn } from './protocolValues'
+import { Protocol, ProtocolFn } from './protocolTypes'
 
-export function protocol<TType, TInit, TValue>(
-    adapter: ProtocolAdapter<TType, TInit>,
-    callback: AnyCallbackFn<TType, TValue>
-) {
-    return (config: TInit) =>
-        // @ts-expect-error
-        run<TType, TInit, TValue>(adapter, config, callback)
+export function createProtocol<TProto extends Protocol>(
+    protocol: TProto
+): ProtocolFn<TProto> {
+    // @ts-expect-error
+    return <TValue, TUrl extends `${keyof TProto & string}://${string}`>(
+        url: TUrl,
+        arg1?:
+            | GetInit<TProto, TUrl>
+            | AnyCallbackFn<GetType<TProto, TUrl>, TValue>,
+        arg2?: AnyCallbackFn<GetType<TProto, TUrl>, TValue>
+    ) =>
+        run(
+            protocol,
+            url,
+            //@ts-expect-error
+            arg1,
+            arg2
+        )
 }
