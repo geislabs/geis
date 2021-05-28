@@ -1,4 +1,4 @@
-import { GetInit, GetType, run } from './protocolFacade'
+import { GetContext, GetInit, GetType, run } from './protocolFacade'
 import { AnyCallbackFn } from './protocolValues'
 import { Protocol, ProtocolFn } from './protocolTypes'
 
@@ -10,8 +10,16 @@ export function createProtocol<TProto extends Protocol>(
         url: TUrl,
         arg1?:
             | GetInit<TProto, TUrl>
-            | AnyCallbackFn<GetType<TProto, TUrl>, TValue>,
-        arg2?: AnyCallbackFn<GetType<TProto, TUrl>, TValue>
+            | AnyCallbackFn<
+                  GetType<TProto, TUrl>,
+                  TValue,
+                  GetContext<TProto, TUrl>
+              >,
+        arg2?: AnyCallbackFn<
+            GetType<TProto, TUrl>,
+            TValue,
+            GetContext<TProto, TUrl>
+        >
     ) =>
         run(
             protocol,
