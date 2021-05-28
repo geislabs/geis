@@ -1,10 +1,10 @@
 import { PromiseCallbackFn, run } from '@geislabs/geis-protocol'
-import nodefetch from 'node-fetch'
 import { AnyConfig, header, body } from './config'
 import { FetchConfig, SerdesMap } from './fetchConfig'
 import { FetchAdapter } from './fetchFacade'
 import { FetchProtocol } from './fetchTypes'
 import { getCallback, getConfig, getConfigs, getSerdes } from './fetchUtils'
+import { nodeFetch } from './node/nodeFacade'
 import { buildRequest } from './request/requestFactory'
 import { FetchRequest } from './request/requestTypes'
 import { FetchResponse } from './response/responseTypes'
@@ -41,7 +41,7 @@ function internal<TValue>(
     const configs = getConfigs(arg1)
     const callback = getCallback(arg1, arg2)
     const {
-        adapter: fetch = nodefetch,
+        adapter: fetch = nodeFetch,
         serdes = {
             json: {
                 encode: (value) => JSON.stringify(value),

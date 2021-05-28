@@ -7,8 +7,8 @@ describe('header', () => {
             'json://google.com',
             [fetch.header('Content-Type', 'application/json')],
             {
-                adapter: async (url, init) => {
-                    expect(init.headers).toStrictEqual({
+                adapter: async (request) => {
+                    expect(request.headers).toStrictEqual({
                         'Content-Type': 'application/json',
                     })
                     return {

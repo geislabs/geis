@@ -9,16 +9,12 @@ export class FetchAdapter
     constructor(public config: FetchConfig) {}
 
     async create<T>(request: FetchRequest<T>): Promise<FetchResponse<T>> {
-        const response = await this.config.adapter(request.url, {
-            method: request.method,
-            headers: request.headers,
-            body: request.body,
-        })
+        const response = await this.config.adapter(request)
         const raw =
             typeof response.body === 'string'
                 ? response.body
                 : await getStream(response.body)
-        return { data: request.serdes.decode(raw) }
+        return { data: request.serdes.decode(raw), request }
     }
 
     async destroy() {}

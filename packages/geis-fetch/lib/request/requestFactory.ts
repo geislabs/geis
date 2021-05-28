@@ -1,18 +1,21 @@
 import { AnyConfig, isBody, isHeader } from '../config'
+import { buildUrl } from '../url/urlFacade'
 import { Serdes } from '../serdes'
-import { CreateRequestAttrs } from './requestAttrs'
+import { AnyRequestAttrs } from './requestAttrs'
 import { FetchRequest } from './requestTypes'
+import { isStringInit } from './requestGuards'
 
 export function buildRequest<T>(
     serdes: Serdes<T>,
     configs: AnyConfig<T>[],
-    attrs: CreateRequestAttrs
+    attrs: AnyRequestAttrs
 ): FetchRequest<T> {
     const headers = configs.filter(isHeader)
     const [body] = configs.filter(isBody)
+    const { url, method = 'get' } = isStringInit(attrs) ? { url: attrs } : attrs
     return {
-        url: attrs.url,
-        method: 'get',
+        url: buildUrl(url),
+        method,
         headers: headers.reduce(
             (acc, config) => ({ ...acc, [config.name]: config.value }),
             {}

@@ -8,7 +8,7 @@ describe('provider', () => {
                     body: JSON.stringify({ value: 10 }),
                 }),
             })
-        ).resolves.toStrictEqual({
+        ).resolves.toMatchObject({
             data: {
                 value: 10,
             },
@@ -19,7 +19,7 @@ describe('provider', () => {
             fetch('json://google.com', {
                 adapter: async () => ({ body: JSON.stringify({ value: 10 }) }),
             })
-        ).resolves.toStrictEqual({
+        ).resolves.toMatchObject({
             data: {
                 value: 10,
             },
