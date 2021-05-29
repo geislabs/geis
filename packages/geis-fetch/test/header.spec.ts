@@ -11,10 +11,8 @@ describe('header', () => {
             }
         })
         expect.hasAssertions()
-        await fetch(
-            'json://google.com',
-            // @ts-expect-error
-            [fetch.header('Content-Type', 'application/json')]
-        )
+        await fetch('json://google.com', [
+            fetch.header('Content-Type', 'application/json'),
+        ])
     })
 })

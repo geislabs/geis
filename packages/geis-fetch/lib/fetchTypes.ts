@@ -5,7 +5,7 @@ import { FetchConfig } from './fetchConfig'
 import { FetchRequest } from './request'
 import { FetchResponse } from './response'
 
-export interface ProtocolResponse<TValue> {
+export interface ProtocolResponse<TValue = unknown> {
     parse: (selector: string) => TValue
 }
 
@@ -13,7 +13,7 @@ export interface FetchSubProtocol<
     TName extends string = string,
     TInit = AnyConfig,
     TSource = any,
-    TValue = any
+    TValue extends ProtocolResponse = ProtocolResponse
 > extends Subprotocol<
         TName,
         TInit,
@@ -24,10 +24,8 @@ export interface FetchSubProtocol<
 
 export interface FetchProtocolFn
     extends ProtocolFn<
-        Protocol<
-            | FetchSubProtocol<'json', AnyConfig, object, JsonPath>
-            | FetchSubProtocol<'html', AnyConfig, string, string>
-        >
+        Protocol<FetchSubProtocol<'json', AnyConfig, object, JsonPath>>
+        // | FetchSubProtocol<'html', AnyConfig, string, string>
     > {
     header: typeof header
     body: typeof body
