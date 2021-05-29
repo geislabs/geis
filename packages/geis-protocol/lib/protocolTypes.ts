@@ -61,7 +61,8 @@ export interface ProtocolFn<
         globals?: Partial<TGlobals>
     ): TUrl extends `${infer TType}://${string}`
         ? TProto[TType] extends Subprotocol<any, any, any, any, infer TResp>
-            ? Promise<TResp>
+            ? // @ts-expect-error
+              Promise<Proxy<TResp>>
             : never
         : never
 }
@@ -69,6 +70,12 @@ export interface ProtocolFn<
 export interface ProtocolResponse<TValue = unknown> extends Iterable<TValue> {
     // data: TValue
     parse: (selector: string) => TValue
+}
+
+// @ts-expect-error
+export interface Proxy<T extends ProtocolResponse> extends T {
+    // @ts-expect-error
+    [key: string]: T extends ProtocolResponse<infer U> ? Proxy<U> : never
 }
 
 // type GetValueType<TUrl extends string, TProto extends Subprotocol<any, any>> =

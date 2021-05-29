@@ -6,6 +6,7 @@ import {
     Protocol,
     // ProtocolFn,
     ProtocolResponse,
+    Proxy,
     Subprotocol,
 } from './protocolTypes'
 import {
@@ -33,7 +34,8 @@ export type GetType<TProto extends Protocol, TUrl extends string> = GetImpl<
     TProto,
     TUrl
 > extends Subprotocol<string, any, any, any, infer TRes>
-    ? TRes
+    ? // @ts-expect-error
+      Proxy<TRes>
     : never
 
 export type GetContext<TProto extends Protocol, TUrl extends string> = GetImpl<
