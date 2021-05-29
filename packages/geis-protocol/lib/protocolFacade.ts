@@ -14,6 +14,7 @@ import {
     PromiseCallbackFn,
     SyncCallbackFn,
 } from './protocolValues'
+import { proxify } from './proxy/proxyHelpers'
 
 export type GetKey<TProto extends Protocol, TUrl extends string> =
     TUrl extends `${infer U & string}://${string}` ? U & keyof TProto : never
@@ -103,7 +104,8 @@ export function run<
             const request = await subprotocol.parse(location, config)
             const source = subprotocol.eval(request, context)
             for await (const value of source) {
-                return resolve(value)
+                const proxied = proxify(value)
+                return resolve(proxied)
             }
         })
     }

@@ -13,8 +13,7 @@ export function Json(
             value: inner,
             provide,
         })
-        // return instance
-        return proxify<JsonPath>(instance)
+        return instance
     }
 
     const value =
@@ -25,22 +24,4 @@ export function Json(
         return instance.parse(path)
     }
     return instance
-}
-
-function proxify<T extends object & { parse: (selector: string) => T }>(
-    value: T
-): T {
-    return new Proxy<T>(value, {
-        get(target, prop) {
-            if (
-                prop in target ||
-                typeof prop === 'symbol' ||
-                prop.toString().startsWith('$$')
-            ) {
-                // @ts-expect-error
-                return Reflect.get(...arguments)
-            }
-            return value.parse(prop.toString())
-        },
-    })
 }

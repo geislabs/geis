@@ -1,0 +1,14 @@
+import { createFetch } from './support'
+
+describe('proxy', () => {
+    test('simple', async () => {
+        const fetch = createFetch('{"value": 5}')
+        const response = await fetch('json://google.com')
+        expect(response['value']).toBe(5)
+    })
+    test('nested', async () => {
+        const fetch = createFetch('{"outer": {"value": 5}}')
+        const response = await fetch('json://google.com')
+        expect(response['outer']['value']).toBe(5)
+    })
+})

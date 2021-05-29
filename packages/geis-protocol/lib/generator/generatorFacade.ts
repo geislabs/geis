@@ -1,5 +1,6 @@
 import { ProtocolResponse, Subprotocol } from '../protocolTypes'
 import { AnyGeneratorCallbackFn } from '../protocolValues'
+import { proxify } from '../proxy/proxyHelpers'
 
 export function runGenerator<
     TType extends ProtocolResponse,
@@ -18,8 +19,9 @@ export function runGenerator<
         const request = await protocol.parse(url, config)
         const source = protocol.eval(request, context)
         for await (const instance of source) {
+            const proxied = proxify(instance)
             try {
-                yield* callback(instance, index, context)
+                yield* callback(proxied, index, context)
             } catch (error) {
                 await protocol.dispose(instance)
                 return Promise.reject(error)

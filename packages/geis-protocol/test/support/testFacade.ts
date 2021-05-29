@@ -1,4 +1,9 @@
-import { createProtocol, Subprotocol, Protocol } from '../../lib'
+import {
+    createProtocol,
+    Subprotocol,
+    Protocol,
+    ProtocolResponse,
+} from '../../lib'
 import { FetchConfig } from './testTypes'
 
 export interface TestContext {
@@ -9,7 +14,7 @@ export interface TestRequest {
     headers: object
 }
 
-export interface TestResponse<T> {
+export interface TestResponse<T> extends ProtocolResponse<T> {
     data: T
     request: TestRequest
 }
@@ -38,7 +43,9 @@ export type TestProtocol = Protocol<TestTextProtocol | TestJsonProtocol>
 
 export const createFetch = (
     response: string,
-    overrides: Partial<Omit<Subprotocol, 'name'>> = {}
+    overrides: Partial<Omit<Subprotocol, 'name'>> & {
+        parse?: (selector: string) => any
+    } = {}
 ) =>
     createProtocol<TestProtocol>({
         text: {
@@ -51,7 +58,7 @@ export const createFetch = (
                 ),
             }),
             eval: async function* (request) {
-                yield { data: response, request }
+                yield { data: response, request, parse: () => 'parsed' }
             },
             dispose: async () => undefined,
             ...overrides,
@@ -66,7 +73,12 @@ export const createFetch = (
                 ),
             }),
             eval: async function* (request) {
-                yield { data: JSON.parse(response), request }
+                const data = JSON.parse(response)
+                yield {
+                    data: data,
+                    request,
+                    parse: (selector) => data[selector] ?? null,
+                }
             },
             dispose: async () => undefined,
             ...overrides,

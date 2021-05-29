@@ -1,5 +1,6 @@
 import { ProtocolResponse, Subprotocol } from '../protocolTypes'
 import { PromiseCallbackFn, SyncCallbackFn } from '../protocolValues'
+import { proxify } from '../proxy/proxyHelpers'
 
 export function runPromise<
     TType extends ProtocolResponse,
@@ -20,8 +21,9 @@ export function runPromise<
         const source = protocol.eval(request, context)
         let index = 0
         for await (const instance of source) {
+            const proxied = proxify(instance)
             try {
-                const result = await callback(instance, index, context)
+                const result = await callback(proxied, index, context)
                 return resolve(result)
             } catch (error) {
                 await protocol.dispose(instance)
