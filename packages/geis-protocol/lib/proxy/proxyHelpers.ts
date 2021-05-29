@@ -3,6 +3,20 @@ import { ProtocolResponse } from '../protocolTypes'
 export function proxify<T extends ProtocolResponse>(value: T): T {
     return new Proxy<T>(value, {
         get(target, prop) {
+            if (prop.toString() === 'data' && typeof value.data === 'object') {
+                // @ts-expect-error
+                return proxify(value.data)
+            }
+            if (prop === Symbol.iterator) {
+                return function* () {
+                    for (const inner of value) {
+                        if (typeof inner === 'object') {
+                            // @ts-expect-error
+                            yield proxify(inner)
+                        }
+                    }
+                }
+            }
             if (
                 prop in target ||
                 typeof prop === 'symbol' ||
@@ -11,6 +25,11 @@ export function proxify<T extends ProtocolResponse>(value: T): T {
                 // @ts-expect-error
                 return Reflect.get(...arguments)
             }
+
+            if (!value.parse) {
+                return
+            }
+
             return value.parse(prop.toString())
         },
     })

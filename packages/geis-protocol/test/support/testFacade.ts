@@ -58,7 +58,14 @@ export const createFetch = (
                 ),
             }),
             eval: async function* (request) {
-                yield { data: response, request, parse: () => 'parsed' }
+                yield {
+                    data: response,
+                    request,
+                    parse: () => 'parsed',
+                    [Symbol.iterator]: () => ({
+                        next: () => ({ done: true, value: null }),
+                    }),
+                }
             },
             dispose: async () => undefined,
             ...overrides,
@@ -74,10 +81,14 @@ export const createFetch = (
             }),
             eval: async function* (request) {
                 const data = JSON.parse(response)
+                const iterator = data[Symbol.iterator]
+                    ? data[Symbol.iterator]
+                    : [][Symbol.iterator]()
                 yield {
                     data: data,
                     request,
                     parse: (selector) => data[selector] ?? null,
+                    [Symbol.iterator]: iterator,
                 }
             },
             dispose: async () => undefined,
