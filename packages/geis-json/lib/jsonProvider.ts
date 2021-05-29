@@ -13,8 +13,8 @@ export function Json(
             value: inner,
             provide,
         })
-        return instance
-        // return proxify<JsonPath>(instance)
+        // return instance
+        return proxify<JsonPath>(instance)
     }
 
     const value =
