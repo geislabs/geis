@@ -67,7 +67,7 @@ export interface ProtocolFn<
 }
 
 export interface ProtocolResponse<TValue = unknown> extends Iterable<TValue> {
-    data: TValue
+    // data: TValue
     parse: (selector: string) => TValue
 }
 

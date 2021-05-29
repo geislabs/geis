@@ -38,6 +38,7 @@ export const createJson = (
             data,
             request,
             parse: data.parse,
+            [Symbol.iterator]: data[Symbol.iterator],
         }
     },
     dispose: async () => undefined,
