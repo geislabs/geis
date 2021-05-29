@@ -3,8 +3,8 @@ import { Json } from '../lib'
 
 describe('cast', () => {
     test('string', () => {
-        const value = Json('{"value": 5}')
-        expect(value.toString()).toBe('{"value":5}')
+        expect(Json('{"value": 5}').toString()).toBe('{"value":5}')
+        expect(Json('{"value": "hello"}', 'value').toString()).toBe('hello')
     })
 
     test('integer', () => {

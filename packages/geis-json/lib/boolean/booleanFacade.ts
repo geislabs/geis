@@ -1,6 +1,9 @@
 import { JsonValue } from '../jsonConfig'
 
-export function parseBoolean(value: JsonValue): boolean | Error | null {
+export function parseBoolean(value: JsonValue | null): boolean | Error | null {
+    if (value === null) {
+        return value
+    }
     if (
         typeof value === 'object' ||
         (typeof value === 'string' &&
