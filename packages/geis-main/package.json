@@ -24,13 +24,13 @@
         "watch": "npm run clean && rollup --config rollup.config.js --watch"
     },
     "dependencies": {
+        "@geislabs/json": "^0.0.54",
+        "@geislabs/fetch": "^0.0.56",
         "@geislabs/geis-browse": "^0.0.45",
         "@geislabs/geis-core": "^0.0.45",
-        "@geislabs/geis-fetch": "^0.0.45",
         "@geislabs/geis-file": "^0.0.45",
         "@geislabs/geis-html": "^0.0.45",
         "@geislabs/geis-image": "^0.0.45",
-        "@geislabs/geis-json": "^0.0.45",
         "@geislabs/geis-protocol": "^0.0.45",
         "@geislabs/geis-resource": "^0.0.45",
         "@geislabs/geis-type": "^0.0.45",

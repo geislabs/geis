@@ -2,7 +2,7 @@
     "name": "root",
     "scripts": {
         "bootstrap": "lerna bootstrap",
-        "bump": "ncu -u && npm update && npm install && lerna bootstrap",
+        "bump": "ncu -u --deep && npm update && npm install && lerna bootstrap",
         "pack": "npm run bump && git add -A && git commit -am \"packed\" --allow-empty && lerna version patch --yes --force-publish",
         "dev": "lerna run watch --stream --parallel",
         "build": "lerna run build --stream",
@@ -39,19 +39,19 @@
         "inversify": "^5.1.1",
         "is-generator-function": "^1.0.9",
         "ix": "^4.3.1",
-        "jest": "^27.0.1",
+        "jest": "^27.0.3",
         "jsonpath": "^1.1.1",
         "lerna": "^4.0.0",
-        "npm-check-updates": "^11.5.13",
+        "npm-check-updates": "^11.6.0",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
-        "rollup": "2.50.1",
+        "rollup": "2.50.5",
         "rollup-plugin-dts": "^3.0.2",
         "supertest": "^6.1.3",
-        "ts-jest": "^27.0.1",
+        "ts-jest": "^27.0.2",
         "ts-loader": "^9.2.2",
         "ts-node": "^10.0.0",
-        "typescript": "4.2.4",
+        "typescript": "4.3.2",
         "zod": "^3.1.0"
     }
 }
