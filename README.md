@@ -23,6 +23,30 @@
   </a>
 </p>
 
+<br/>
+
+### Data Types
+
+| Package | Version | Dependencies |
+|--------|-------|------------|
+| [`@geis/json`](/packages/geis-json) | [![npm](https://img.shields.io/npm/v/@geislabs/geis-json.svg?maxAge=3600)](https://www.npmjs.com/package/@babel/core) | [![Dependency Status](https://david-dm.org/babel/babel.svg?path=packages/babel-core)](https://david-dm.org/babel/babel?path=packages/babel-core) |
+| [`@geis/html`](/packages/geis-html) | [![npm](https://img.shields.io/npm/v/@geislabs/geis-html.svg?maxAge=3600)](https://www.npmjs.com/package/@babel/parser) | [![Dependency Status](https://david-dm.org/babel/babel.svg?path=packages/babel-parser)](https://david-dm.org/babel/babel?path=packages/babel-parser) |
+
+<br/>
+
+### Protocols
+
+| Package | Version | Dependencies |
+|--------|-------|------------|
+| [`@geis/fetch`](/packages/geis-fetch) | [![npm](https://img.shields.io/npm/v/@geislabs/geis-fetch.svg?maxAge=3600)](https://www.npmjs.com/package/@babel/core) | [![Dependency Status](https://david-dm.org/babel/babel.svg?path=packages/babel-core)](https://david-dm.org/babel/babel?path=packages/babel-core) |
+| [`@geis/browse`](/packages/geis-browse) | [![npm](https://img.shields.io/npm/v/@geislabs/geis-browse.svg?maxAge=3600)](https://www.npmjs.com/package/@babel/parser) | [![Dependency Status](https://david-dm.org/babel/babel.svg?path=packages/babel-parser)](https://david-dm.org/babel/babel?path=packages/babel-parser) |
+| [`@geis/open`](/packages/geis-open) | [![npm](https://img.shields.io/npm/v/@geislabs/geis-open.svg?maxAge=3600)](https://www.npmjs.com/package/@babel/traverse) | [![Dependency Status](https://david-dm.org/babel/babel.svg?path=packages/babel-traverse)](https://david-dm.org/babel/babel?path=packages/babel-traverse) |
+
+<br/>
+
+---
+
+
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
