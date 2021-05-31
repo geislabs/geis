@@ -1,4 +1,4 @@
-import { HtmlPath } from '@geislabs/geis-html'
+import { HtmlPath } from '@geislabs/html'
 import { Resource } from '@geislabs/geis-resource'
 import { Castable, MaybeType } from '@geislabs/geis-type'
 import { IntegerType, StringType } from '@geislabs/geis-core'

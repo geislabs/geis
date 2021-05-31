@@ -29,6 +29,6 @@
     "devDependencies": {
         "@geislabs/geis-browse": "^0.0.47",
         "@geislabs/geis-file": "^0.0.47",
-        "@geislabs/geis-html": "^0.0.47"
+        "@geislabs/html": "^0.0.60"
     }
 }

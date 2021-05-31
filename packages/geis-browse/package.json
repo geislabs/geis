@@ -30,7 +30,7 @@
     "devDependencies": {
         "@geislabs/geis-core": "^0.0.47",
         "@geislabs/geis-file": "^0.0.47",
-        "@geislabs/geis-html": "^0.0.47",
+        "@geislabs/html": "^0.0.60",
         "@geislabs/geis-resource": "^0.0.47",
         "@geislabs/geis-type": "^0.0.47",
         "cheerio": "^1.0.0-rc.9"

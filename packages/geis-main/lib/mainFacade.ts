@@ -1,6 +1,6 @@
 import { config as fetchConfig } from '@geislabs/fetch'
-import { createFetch as createJsonFetch } from '@geislabs/json'
-import { Json } from '@geislabs/json'
+import { Json, createFetch as jsonFetch } from '@geislabs/json'
+import { Html, createFetch as htmlFetch } from '@geislabs/html'
 
 /**
  * Do stuff
@@ -9,9 +9,10 @@ import { Json } from '@geislabs/json'
  */
 export function config() {
     const createFetch = fetchConfig()
-    const fetch = createFetch([createJsonFetch()])
+    const fetch = createFetch([jsonFetch(), htmlFetch()])
     return {
         fetch,
         Json,
+        Html,
     }
 }
