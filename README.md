@@ -45,7 +45,8 @@
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Features](#features)
+- [Install](#install)
+- [Key Features](#key-features)
     - [Advantages Over Other Tools](#advantages-over-other-tools)
 
 ---
@@ -57,7 +58,13 @@ _Note: This README is for the unreleased master branch, please reference the
 
 ---
 
-## Features
+## Install
+
+```bash
+npm install geis --save
+```
+
+## Key Features
 
 Geis' primary goals are **reliability**, **consistency** and **observability**.
 
