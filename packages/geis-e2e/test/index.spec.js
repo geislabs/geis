@@ -1,16 +1,3 @@
-const { config, mock } = require('@geislabs/geis')
-
-const { cast, apply, browse, Integer, String } = config({
-    adapter: mock({
-        'http://google.com': `<html>
-            <div class="title">hello</div>
-            <div class="description">description</div>
-            <div class="summary">summary</div>
-            <div class="likes">15</div>
-        </html>`,
-    }),
-})
-
 describe('browse', () => {
     test('simple', async () => {
         // await expect(

@@ -1,18 +1,29 @@
-import { config as fetchConfig } from '@geislabs/fetch'
-import { Json, createFetch as jsonFetch } from '@geislabs/json'
-import { Html, createFetch as htmlFetch } from '@geislabs/html'
+import { Dependency, runtime, config as createEvents } from '@geislabs/runtime'
+import { http } from '@geislabs/http'
+import { GeisConfig } from './mainConfig'
+import { GeisRuntime } from './mainTypes'
 
 /**
- * Do stuff
+ * Initialize the Geis client
  * @param config
  * @returns
  */
-export function config() {
-    const createFetch = fetchConfig()
-    const fetch = createFetch([jsonFetch(), htmlFetch()])
-    return {
-        fetch,
-        Json,
-        Html,
+export function config<TDep extends Dependency>({
+    plugins = [],
+    dependencies = [],
+    ...config
+}: Partial<GeisConfig<TDep>> = {}): GeisRuntime<TDep> {
+    const events = createEvents()
+    const instance = runtime({
+        dependencies: [
+            http({
+                events,
+            }),
+            ...dependencies,
+        ],
+    })
+    for (const plugin of plugins) {
+        plugin.register(instance)
     }
+    return instance
 }
