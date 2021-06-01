@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.49",
+    "version": "0.0.50",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -31,8 +31,8 @@
         "@geislabs/runtime": "^0.0.69"
     },
     "devDependencies": {
+        "@geislabs/http-proxy": "^0.0.76",
         "esbuild": "^0.12.5",
-        "rimraf": "^3.0.2",
-        "@geislabs/http-proxy": "^0.0.76"
+        "rimraf": "^3.0.2"
     }
 }
