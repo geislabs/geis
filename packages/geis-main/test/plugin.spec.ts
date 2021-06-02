@@ -1,19 +1,22 @@
 import { proxy } from '@geislabs/http'
+import { toArray } from 'ix/asynciterable'
 import { config } from '../lib'
 
 describe('plugin', () => {
     test('simple', async () => {
-        const geis = config({
+        const { run } = config({
             plugins: [
                 proxy({
-                    proxy: {
+                    mapping: {
                         'google.com': 'localhost:4000',
                     },
                 }),
             ],
         })
         await expect(
-            geis.http.request({ url: 'https://google.com' }).then(console.log)
+            toArray(
+                run(({ http }) => http.request({ url: 'https://google.com' }))
+            )
         ).rejects.toThrow(
             /request to https:\/\/localhost:4000\/ failed, reason: connect ECONNREFUSED/
         )

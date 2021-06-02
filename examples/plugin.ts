@@ -1,7 +1,6 @@
 export interface Config<TPlugins> {
     plugins: TPlugins
 }
-
 type Plugin = <TIn extends Context = Context>(context: TIn) => any
 
 export interface Context {

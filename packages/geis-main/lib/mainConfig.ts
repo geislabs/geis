@@ -1,7 +1,5 @@
-import { Plugin, Dependency } from '@geislabs/runtime'
-import { MainDependency } from './mainTypes'
+import { Plugin } from '@geislabs/runtime'
 
-export interface GeisConfig<TDeps extends Dependency> {
-    dependencies: TDeps[]
-    plugins: Plugin<TDeps | MainDependency>[]
+export interface GeisConfig<TPlugin extends Plugin<any>> {
+    plugins: Array<TPlugin>
 }

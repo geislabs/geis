@@ -25,13 +25,14 @@
     },
     "dependencies": {
         "@geislabs/fetch": "^0.0.57",
-        "@geislabs/http": "^0.0.76",
+        "@geislabs/http": "^0.0.77",
         "@geislabs/json": "^0.0.54",
         "@geislabs/protocol": "^0.0.48",
-        "@geislabs/runtime": "^0.0.69"
+        "@geislabs/runtime": "^0.0.72",
+        "@geislabs/runner": "^0.0.17"
     },
     "devDependencies": {
-        "@geislabs/http-proxy": "^0.0.76",
+        "@geislabs/http-proxy": "^0.0.77",
         "esbuild": "^0.12.5",
         "rimraf": "^3.0.2"
     }
