@@ -6,20 +6,23 @@
  */
 
 const { config } = require('..') // const config = require('@geislabs/geis')
+const geis = config()
 
 async function run() {
-    const geis = config()
-    const source1 = geis.run(
-        [1, 2, 3, 4, 5],
-        async function* (value, index, { http }) {
-            const response = await http.request({
-                url: 'https://github.com/geislabs/geis',
-            })
-            yield response
+    const source1 = geis.run(async function* ({ http }) {
+        const response = await http.request({
+            url: 'https://github.com/geislabs/geis',
+        })
+        yield {
+            name: response.body['name'],
+            name: response.body['name'],
+            name: response.body['name'],
+            name: response.body['name'],
+            name: response.body['name'],
         }
-    )
+    })
     for await (const value of source1) {
-        console.log(value.status)
+        console.log(value)
     }
 }
 

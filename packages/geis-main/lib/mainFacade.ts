@@ -12,7 +12,7 @@ import { BuiltinPlugin } from './mainTypes'
 export function config<TPlugin extends Plugin<any>>({
     plugins = [],
     ...config
-}: Partial<GeisConfig<TPlugin>> = {}): Executor<BuiltinPlugin | TPlugin> {
+}: Partial<GeisConfig<TPlugin>> = {}): Executor<TPlugin | BuiltinPlugin> {
     const runner = createRunner({ plugins: [...plugins, http()] })
     return runner
 }
