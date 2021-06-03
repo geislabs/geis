@@ -19,3 +19,6 @@ export function config<TPlugin extends Plugin<any>>({
     })
     return runner
 }
+
+const { run, watch } = config()
+export { run, watch }
