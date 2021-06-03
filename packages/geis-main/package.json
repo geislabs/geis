@@ -30,7 +30,7 @@
         "@geislabs/json": "^0.0.54",
         "@geislabs/json-fetch": "^0.0.54",
         "@geislabs/protocol": "^0.0.48",
-        "@geislabs/runner": "^0.0.17",
+        "@geislabs/runner": "^0.0.24",
         "@geislabs/runtime": "^0.0.74",
         "ix": "^4.3.1"
     },
