@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.56",
+    "version": "0.0.57",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -27,8 +27,8 @@
         "@geislabs/fetch": "^0.0.57",
         "@geislabs/http": "^0.0.77",
         "@geislabs/http-proxy": "^0.0.77",
-        "@geislabs/json-fetch": "^0.0.54",
         "@geislabs/json": "^0.0.54",
+        "@geislabs/json-fetch": "^0.0.54",
         "@geislabs/protocol": "^0.0.48",
         "@geislabs/runner": "^0.0.17",
         "@geislabs/runtime": "^0.0.74"
