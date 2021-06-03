@@ -14,11 +14,7 @@ async function run() {
             url: 'https://github.com/geislabs/geis',
         })
         yield {
-            name: response.body['name'],
-            name: response.body['name'],
-            name: response.body['name'],
-            name: response.body['name'],
-            name: response.body['name'],
+            name: response.body,
         }
     })
     for await (const value of source1) {

@@ -10,19 +10,19 @@ const geis = config()
 
 async function run() {
     const source1 = geis.run(async function* ({ http }) {
-        const response = await http.request({
+        const { body } = await http.request({
             url: 'https://github.com/geislabs/geis',
         })
         yield {
-            name: response.body['name'],
+            name: body['name'],
             // @ts-expect-error
-            name: response.body['name'],
+            name: body['name'],
             // @ts-expect-error
-            name: response.body['name'],
+            name: body['name'],
             // @ts-expect-error
-            name: response.body['name'],
+            name: body['name'],
             // @ts-expect-error
-            name: response.body['name'],
+            name: body['name'],
         }
     })
     for await (const value of source1) {

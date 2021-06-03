@@ -29,7 +29,7 @@
         "@geislabs/json": "^0.0.54",
         "@geislabs/protocol": "^0.0.48",
         "@geislabs/runner": "^0.0.17",
-        "@geislabs/runtime": "^0.0.72"
+        "@geislabs/runtime": "^0.0.74"
     },
     "devDependencies": {
         "@geislabs/http-proxy": "^0.0.77",
