@@ -1,6 +1,6 @@
 {
     "name": "@geislabs/geis",
-    "version": "0.0.61",
+    "version": "0.0.62",
     "description": "> TODO: description",
     "author": "mads hargreave <mads.hargreave@gmail.com>",
     "homepage": "",
@@ -30,10 +30,10 @@
         "@geislabs/http-proxy": "^0.0.78",
         "@geislabs/json": "^0.0.54",
         "@geislabs/json-fetch": "^0.0.54",
+        "@geislabs/plugin": "^0.0.2",
         "@geislabs/protocol": "^0.0.48",
         "@geislabs/runner": "^0.0.24",
         "@geislabs/runtime": "^0.0.78",
-        "@geislabs/plugin": "^0.0.2",
         "ix": "^4.3.1"
     },
     "devDependencies": {
