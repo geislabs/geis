@@ -1,4 +1,4 @@
-import { proxy } from '@geislabs/http'
+import { proxy } from '@geislabs/http-proxy'
 import { toArray } from 'ix/asynciterable'
 import { config } from '../lib'
 
@@ -7,11 +7,12 @@ describe('plugin', () => {
         const { run } = config({
             plugins: [
                 {
-                    plugin: proxy({
+                    plugin: proxy,
+                    options: {
                         mapping: {
                             'google.com': 'localhost:4000',
                         },
-                    }),
+                    },
                 },
             ],
         })

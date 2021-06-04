@@ -1,4 +1,4 @@
-import { Http } from '@geislabs/http'
-import { fromFetch } from './protocols/protocolFactory'
+import { HttpPlugin } from '@geislabs/http'
+import { FetchPlugin } from './fetch/fetchTypes'
 
-export type BuiltinPlugin = Http | ReturnType<typeof fromFetch>
+export type BuiltinPlugin = HttpPlugin | FetchPlugin

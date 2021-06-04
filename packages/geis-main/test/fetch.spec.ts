@@ -1,4 +1,4 @@
-import { Response, http } from '@geislabs/http'
+import { Response, plugin as http } from '@geislabs/http'
 import { toArray } from 'ix/asynciterable'
 import { config } from '../lib'
 
@@ -15,7 +15,7 @@ const mockFn = async (url: string): Promise<Response> => ({
 describe('fetch', () => {
     test('simple', async () => {
         const { run } = config({
-            plugins: [{ plugin: http({ fetchFn: mockFn }) }],
+            plugins: [{ plugin: http, options: { fetchFn: mockFn } }],
         })
         await expect(
             toArray(

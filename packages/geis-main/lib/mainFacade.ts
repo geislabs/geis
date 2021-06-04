@@ -1,9 +1,9 @@
-import { http } from '@geislabs/http'
+import { plugin as http } from '@geislabs/http'
+import { plugin as fetch } from '@geislabs/fetch-plugin'
 import { config as createRunner, IExecutor } from '@geislabs/runner'
-import { Plugin, PluginObject } from '@geislabs/runtime'
+import { PluginObject } from '@geislabs/runtime'
 import { GeisConfig } from './mainConfig'
 import { BuiltinPlugin } from './mainTypes'
-import { fromFetch } from './protocols/protocolFactory'
 
 /**
  * Initialize the Geis client
@@ -18,11 +18,13 @@ export function config<TPlugin extends PluginObject<any>>({
         plugins: [
             {
                 // @ts-expect-error
-                plugin: http(),
+                plugin: http,
+                options: {},
             },
             {
                 // @ts-expect-error
-                plugin: fromFetch(http()),
+                plugin: fetch,
+                config: {},
             },
             // @ts-expect-error
             ...plugins,
