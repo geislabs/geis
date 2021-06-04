@@ -6,11 +6,13 @@ describe('plugin', () => {
     test('simple', async () => {
         const { run } = config({
             plugins: [
-                proxy({
-                    mapping: {
-                        'google.com': 'localhost:4000',
-                    },
-                }),
+                {
+                    plugin: proxy({
+                        mapping: {
+                            'google.com': 'localhost:4000',
+                        },
+                    }),
+                },
             ],
         })
         await expect(

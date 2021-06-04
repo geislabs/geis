@@ -1,6 +1,6 @@
 import { http } from '@geislabs/http'
 import { config as createRunner, IExecutor } from '@geislabs/runner'
-import { Plugin } from '@geislabs/runtime'
+import { Plugin, PluginObject } from '@geislabs/runtime'
 import { GeisConfig } from './mainConfig'
 import { BuiltinPlugin } from './mainTypes'
 import { fromFetch } from './protocols/protocolFactory'
@@ -10,12 +10,23 @@ import { fromFetch } from './protocols/protocolFactory'
  * @param config
  * @returns
  */
-export function config<TPlugin extends Plugin<any>>({
+export function config<TPlugin extends PluginObject<any>>({
     plugins = [],
     ...config
 }: Partial<GeisConfig<TPlugin>> = {}): IExecutor<BuiltinPlugin> {
     const runner = createRunner({
-        plugins: [http(), fromFetch(http()), ...plugins],
+        plugins: [
+            {
+                // @ts-expect-error
+                plugin: http(),
+            },
+            {
+                // @ts-expect-error
+                plugin: fromFetch(http()),
+            },
+            // @ts-expect-error
+            ...plugins,
+        ],
     })
     return runner
 }

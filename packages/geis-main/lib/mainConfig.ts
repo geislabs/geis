@@ -1,5 +1,5 @@
-import { Plugin } from '@geislabs/runtime'
+import { PluginObject } from '@geislabs/runtime'
 
-export interface GeisConfig<TPlugin extends Plugin<any>> {
+export interface GeisConfig<TPlugin extends PluginObject<any>> {
     plugins: Array<TPlugin>
 }

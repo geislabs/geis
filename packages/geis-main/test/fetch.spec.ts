@@ -1,8 +1,8 @@
-import { Response, FetchFn, http } from '@geislabs/http'
+import { Response, http } from '@geislabs/http'
 import { toArray } from 'ix/asynciterable'
 import { config } from '../lib'
 
-const mockFn: FetchFn = async (url: string): Promise<Response> => ({
+const mockFn = async (url: string): Promise<Response> => ({
     status: 200,
     body: JSON.stringify({
         userId: 1,
@@ -15,7 +15,7 @@ const mockFn: FetchFn = async (url: string): Promise<Response> => ({
 describe('fetch', () => {
     test('simple', async () => {
         const { run } = config({
-            plugins: [http({ fetchFn: mockFn })],
+            plugins: [{ plugin: http({ fetchFn: mockFn }) }],
         })
         await expect(
             toArray(
